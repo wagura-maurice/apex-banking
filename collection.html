@@ -1335,15 +1335,10 @@
         </div>
 
         <!-- Working Area -->
-        <div
-          class="overflow-y-auto flex-1 px-5 py-3 space-y-4 scrollbar-transparent"
-          id="chat-messages"
-        >
-          <!-- working grid content should occupy here -->
-
+        <div class="flex flex-col flex-1 bg-[#1B2233] text-white">
           <!-- Tabs Navigation Wrapper -->
           <div
-            class="relative flex items-center border-b border-gray-700 bg-[#1B2233] text-white rounded-full"
+            class="relative flex items-center border-b border-gray-700 bg-[#1B2233]"
           >
             <!-- Left Chevron -->
             <button
@@ -1353,112 +1348,39 @@
               <i class="fas fa-chevron-left"></i>
             </button>
 
-            <!-- Scrollable Tab Container -->
+            <!-- Scrollable Tabs -->
             <div
               id="tab-scroll"
-              class="flex overflow-x-auto scrollbar-hide space-x-3 px-2 py-2 flex-1 items-center"
+              class="flex overflow-x-auto scrollbar-hide space-x-2 px-2 py-2 flex-1 items-center"
             >
-              <!-- Tabs -->
+              <!-- Main Tab (visually different) -->
               <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+                data-tab="main"
+                class="tab-btn whitespace-nowrap px-4 py-1 text-white font-semibold border-b-2 border-white rounded-t-md bg-[#2E3A59]"
               >
-                Block / Unblock
+                Client Summary
               </button>
+
+              <!-- Dynamic Tabs -->
               <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+                data-tab="address"
+                class="tab-btn whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white"
               >
                 Client Address
               </button>
               <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+                data-tab="documents"
+                class="tab-btn whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white"
               >
                 Client Documents
               </button>
               <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Next Of Kin
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+                data-tab="notes"
+                class="tab-btn whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white"
               >
                 Client Notes
               </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Customer Specialconditions
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Images
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Indirect Income/Expenses
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Alerts
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Customer Custom Fields
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Accounts in Other Financial Institution
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Employment Info
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Business Info
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Roles
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Client Reminders
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Customer Black Listing
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Identification IDs
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Customer Charge Rates
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Customer LOP Prequalification
-              </button>
-              <button
-                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
-              >
-                Customer Transfer
-              </button>
+              <!-- Add other tabs here -->
             </div>
 
             <!-- Right Chevron -->
@@ -1470,22 +1392,40 @@
             </button>
           </div>
 
-          <script>
-            const scrollContainer = document.getElementById("tab-scroll");
-            document
-              .getElementById("scroll-left")
-              .addEventListener("click", () => {
-                scrollContainer.scrollBy({ left: -150, behavior: "smooth" });
-              });
-            document
-              .getElementById("scroll-right")
-              .addEventListener("click", () => {
-                scrollContainer.scrollBy({ left: 150, behavior: "smooth" });
-              });
-          </script>
+          <!-- Working Area Content -->
+          <div
+            id="chat-messages"
+            class="overflow-y-auto flex-1 px-5 py-4 space-y-4 scrollbar-transparent"
+          >
+            <!-- Dynamic tab content goes here -->
+            <div id="tab-content-main" class="tab-content">
+              <div class="bg-[#273047] rounded-lg p-4 border border-white/10">
+                <h2 class="text-lg font-semibold mb-2">Client Summary</h2>
+                <p>Welcome! This is the default client overview.</p>
+              </div>
+            </div>
 
-          <!-- working area content -->
-          <div></div>
+            <div id="tab-content-address" class="tab-content hidden">
+              <div class="bg-[#273047] rounded-lg p-4 border border-white/10">
+                <h2 class="text-lg font-semibold mb-2">Client Address</h2>
+                <p>This is where client address info will go.</p>
+              </div>
+            </div>
+
+            <div id="tab-content-documents" class="tab-content hidden">
+              <div class="bg-[#273047] rounded-lg p-4 border border-white/10">
+                <h2 class="text-lg font-semibold mb-2">Client Documents</h2>
+                <p>Document management area.</p>
+              </div>
+            </div>
+
+            <div id="tab-content-notes" class="tab-content hidden">
+              <div class="bg-[#273047] rounded-lg p-4 border border-white/10">
+                <h2 class="text-lg font-semibold mb-2">Client Notes</h2>
+                <p>Personal notes related to the client.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1757,6 +1697,70 @@
           activeSubmenu = null;
         }
       }
+
+      const scrollContainer = document.getElementById("tab-scroll");
+      const leftBtn = document.getElementById("scroll-left");
+      const rightBtn = document.getElementById("scroll-right");
+
+      // Scroll functionality
+      leftBtn.addEventListener("click", () => {
+        scrollContainer.scrollBy({ left: -200, behavior: "smooth" });
+      });
+
+      rightBtn.addEventListener("click", () => {
+        scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
+      });
+
+      // Tab switching functionality
+      const tabs = document.querySelectorAll(".tab-button");
+      const contents = document.querySelectorAll(".content-area");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const tabId = tab.getAttribute("data-tab");
+
+          // Remove active class from all tabs
+          tabs.forEach((t) => t.classList.remove("active"));
+          // Add active class to clicked tab
+          tab.classList.add("active");
+
+          // Hide all content areas
+          contents.forEach((content) => {
+            content.classList.remove("active");
+          });
+
+          // Show selected content area with animation delay
+          setTimeout(() => {
+            const targetContent = document.getElementById(`content-${tabId}`);
+            if (targetContent) {
+              targetContent.classList.add("active");
+            }
+          }, 150);
+        });
+      });
+
+      // Update scroll button states
+      function updateScrollButtons() {
+        const isAtStart = scrollContainer.scrollLeft <= 0;
+        const isAtEnd =
+          scrollContainer.scrollLeft >=
+          scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+        leftBtn.style.opacity = isAtStart ? "0.5" : "1";
+        rightBtn.style.opacity = isAtEnd ? "0.5" : "1";
+      }
+
+      scrollContainer.addEventListener("scroll", updateScrollButtons);
+      updateScrollButtons();
+
+      // Simulate session activity
+      function simulateSessionActivity() {
+        const sessionIndicator = document.querySelector(".session-indicator");
+        // Add any session-related functionality here
+      }
+
+      // Initialize session simulation
+      setInterval(simulateSessionActivity, 5000);
     </script>
   </body>
 </html>
