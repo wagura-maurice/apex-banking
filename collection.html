@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NotebookLM - Collection Page</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: {
+            sans: ["Rubik", "sans-serif"],
+          },
+          extend: {
+            colors: {
+              "dark-blue": "#0f172a",
+              "blue-gray": "#1e293b",
+              "accent-blue": "#38bdf8",
+              "purple-500": "#8b5cf6",
+            },
+            animation: {
+              "bounce-slow": "bounce 2s infinite",
+              "fade-in": "fadeIn 0.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Quill CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link href="./css/collection.css" rel="stylesheet" />
+    <link href="./css/openCanvas.css" rel="stylesheet" />
+  </head>
+
+  <body class="h-screen flex flex-col bg-dark-blue overflow-hidden font-sans">
+    <!-- Preloader -->
+    <div
+      id="preloader"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-purple-500"
+    >
+      <div
+        class="animate-spin rounded-full h-12 w-12 border-b-2 border-white"
+      ></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="px-4 py-3 bg-dark-blue min-h-16 lg:h-20 shadow-md">
+      <div class="flex flex-col lg:flex-row h-full lg:items-center mx-auto">
+        <div
+          class="flex items-center justify-between w-full lg:w-auto lg:flex-1"
+        >
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="./index.html">
+              <img
+                src="./images/logo.png"
+                alt="Logo"
+                class="h-10 w-10 lg:h-12 lg:w-12 rounded-full mr-3"
+              />
+            </a>
+          </div>
+
+          <!-- Mobile Icons -->
+          <div class="lg:hidden flex items-center space-x-3">
+            <a
+              href="./index.html"
+              class="text-gray-300 hover:text-accent-blue p-2 rounded-full hover:bg-blue-gray transition-colors"
+            >
+              <i class="fa-solid fa-house fa-md"></i>
+            </a>
+            <button
+              id="share-collection-btn"
+              class="text-gray-300 hover:text-accent-blue p-2 rounded-full hover:bg-blue-gray transition-colors"
+            >
+              <i class="fas fa-share-alt fa-md"></i>
+            </button>
+            <button
+              class="text-gray-300 hover:text-accent-blue p-2 rounded-full hover:bg-blue-gray transition-colors"
+            >
+              <i class="fas fa-cog fa-md"></i>
+            </button>
+            <div class="relative h-8 w-8">
+              <img
+                src="https://ui-avatars.com/api/?name=Peter+Thirikwa&background=6366f1&color=fff&rounded=true&size=40"
+                class="h-full w-full rounded-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
+              />
+              <div
+                class="absolute inset-0 rounded-full border-2 border-green-500 pointer-events-none"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h1
+          class="text-center lg:text-left text-lg lg:text-2xl font-bold text-white hover:text-accent-blue transition-colors mt-2 lg:mt-0 lg:mx-4 lg:flex-1"
+        >
+          Apex Banking - Customer Information
+        </h1>
+
+        <!-- Desktop Icons -->
+        <div
+          class="hidden lg:flex items-center justify-end space-x-3 lg:flex-1"
+        >
+          <a
+            href="./index.html"
+            class="text-gray-300 hover:text-accent-blue p-2 rounded-full hover:bg-blue-gray transition-colors"
+          >
+            <i class="fa-solid fa-house fa-md"></i>
+          </a>
+          <button
+            id="shareCollectionBtn"
+            class="text-gray-300 hover:text-accent-blue p-2 rounded-full hover:bg-blue-gray transition-colors"
+          >
+            <i class="fas fa-share-alt fa-md"></i>
+          </button>
+          <button
+            class="text-gray-300 hover:text-accent-blue p-2 rounded-full hover:bg-blue-gray transition-colors"
+          >
+            <i class="fas fa-cog fa-md"></i>
+          </button>
+          <div class="relative h-10 w-10">
+            <img
+              src="https://ui-avatars.com/api/?name=Peter+Thirikwa&background=6366f1&color=fff&rounded=true&size=40"
+              class="h-full w-full rounded-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
+            />
+            <div
+              class="absolute inset-0 rounded-full border-2 border-green-500 pointer-events-none"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Tabs -->
+    <div
+      class="lg:hidden flex border-b border-gray-700 bg-blue-gray sticky top-16 z-10"
+    >
+      <button
+        class="tab-button flex-1 py-3 text-center font-medium"
+        data-tab="left-column"
+      >
+        <i class="fas fa-book mr-2"></i><span>Menu</span>
+      </button>
+      <button
+        class="tab-button active flex-1 py-3 text-center font-medium"
+        data-tab="middle-column"
+      >
+        <i class="fas fa-comments mr-2"></i><span>Working Area</span>
+      </button>
+      <button
+        class="tab-button flex-1 py-3 text-center font-medium"
+        data-tab="right-column"
+      >
+        <i class="fas fa-sliders-h mr-2"></i><span>Ai Assistant</span>
+      </button>
+    </div>
+
+    <!-- Main Content -->
+    <div
+      class="flex flex-1 overflow-hidden gap-2 lg:p-2"
+      id="columns-container"
+    >
+      <!-- Left Column - Menu -->
+      <div
+        id="left-column"
+        class="mobile-tab-content w-full lg:w-72 bg-slate-800 text-white transition-all duration-300 flex flex-col rounded-lg shadow-[0_4px_6px_-1px_rgba(147,51,234,0.3),0_2px_4px_-1px_rgba(147,51,234,0.1)] lg:block hidden"
+      >
+        <!-- Expanded view -->
+        <div class="flex flex-col h-full expanded-content">
+          <!-- Header -->
+          <div
+            class="flex items-center justify-between px-5 py-3 border-b border-slate-700"
+          >
+            <h2 class="text-lg font-semibold lg:block hidden">Menu</h2>
+            <button
+              id="collapse-left"
+              class="text-white text-lg hover:text-sky-400"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+          </div>
+          <div class="flex-1 w-full overflow-y-auto scrollbar-transparent">
+            <ul class="source-list space-y-1">
+              <!-- System -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-system')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-cog text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">System</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-system">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-cog mr-2 text-xs text-blue-300"></i>System
+                    Settings
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-user-shield mr-2 text-xs text-blue-300"></i
+                    >User Management
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Loan Workflow -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-loan')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-project-diagram text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Loan Workflow</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-loan">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-file-signature mr-2 text-xs text-blue-300"
+                    ></i
+                    >Loan Origination
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-check-circle mr-2 text-xs text-blue-300"
+                    ></i
+                    >Loan Approval
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-calculator mr-2 text-xs text-blue-300"></i
+                    >Loan Processing
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Customer Information -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-customer')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-users text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm"
+                    >Customer Information</span
+                  >
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-customer">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-user mr-2 text-xs text-blue-300"></i
+                    >Individual Customers
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-building mr-2 text-xs text-blue-300"></i
+                    >Corporate Customers
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-search mr-2 text-xs text-blue-300"></i
+                    >Customer Search
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Bill Discounting -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-bill')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i
+                      class="fas fa-file-invoice-dollar text-blue-400 text-sm"
+                    ></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Bill Discounting</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-bill">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-receipt mr-2 text-xs text-blue-300"></i
+                    >Bill Entry
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-percentage mr-2 text-xs text-blue-300"></i
+                    >Discount Calculation
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Biometrics -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-biometrics')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-fingerprint text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Biometrics</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-biometrics">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-fingerprint mr-2 text-xs text-blue-300"></i
+                    >Fingerprint Setup
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-eye mr-2 text-xs text-blue-300"></i>Iris
+                    Recognition
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Clearing -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-clearing')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-exchange-alt text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Clearing</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-clearing">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-check mr-2 text-xs text-blue-300"></i
+                    >Cheque Clearing
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-times mr-2 text-xs text-blue-300"></i
+                    >Return Items
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Fixed Assets -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-assets')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-building text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Fixed Assets</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-assets">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-plus mr-2 text-xs text-blue-300"></i>Asset
+                    Registration
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-chart-line mr-2 text-xs text-blue-300"></i
+                    >Depreciation
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Mail Management -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-mail')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-envelope text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Mail Management</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-mail">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-inbox mr-2 text-xs text-blue-300"></i>Inbox
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-paper-plane mr-2 text-xs text-blue-300"></i
+                    >Send Mail
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Scoring -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-scoring')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-star text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Scoring</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-scoring">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-chart-bar mr-2 text-xs text-blue-300"></i
+                    >Credit Scoring
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fa-brands fa-asymmetrik mr-2 text-xs text-blue-300"
+                    ></i>
+                    Risk Assessment
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Agency Banking -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-agency')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-handshake text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Agency Banking</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-agency">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-store mr-2 text-xs text-blue-300"></i>Agent
+                    Management
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-money-bill-transfer mr-2 text-xs text-blue-300"
+                    ></i
+                    >Agent Transactions
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Money Markets -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-money')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-chart-line text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Money Markets</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-money">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-coins mr-2 text-xs text-blue-300"></i
+                    >Market Rates
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fa-solid fa-chalkboard mr-2 text-xs text-blue-300"
+                    ></i>
+                    Investment Tracking
+                  </li>
+                </ul>
+              </li>
+
+              <!-- System Security -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-security')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-shield-alt text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">System Security</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-security">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-key mr-2 text-xs text-blue-300"></i>Access
+                    Control
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-history mr-2 text-xs text-blue-300"></i
+                    >Audit Trail
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Other Modules -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-other')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-puzzle-piece text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Other Modules</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-other">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-tools mr-2 text-xs text-blue-300"></i
+                    >Utilities
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-cogs mr-2 text-xs text-blue-300"></i
+                    >Configuration
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Customer Accounts -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-accounts')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-user-circle text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Customer Accounts</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-accounts">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-plus-circle mr-2 text-xs text-blue-300"></i
+                    >Account Opening
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-edit mr-2 text-xs text-blue-300"></i
+                    >Account Maintenance
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Transactions -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-transactions')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-exchange-alt text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Transactions</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul
+                  class="submenu pl-8 mt-1 space-y-1"
+                  id="submenu-transactions"
+                >
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-arrow-down mr-2 text-xs text-blue-300"></i
+                    >Deposits
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-arrow-up mr-2 text-xs text-blue-300"></i
+                    >Withdrawals
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fa-solid fa-money-bill-transfer mr-2 text-xs text-blue-300"
+                    ></i>
+                    Transfers
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Groups -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-groups')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-users-cog text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Groups</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-groups">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-plus mr-2 text-xs text-blue-300"></i>Create
+                    Group
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-list mr-2 text-xs text-blue-300"></i>Manage
+                    Groups
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Bank Settings -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-bank-settings')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-university text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Bank Settings</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul
+                  class="submenu pl-8 mt-1 space-y-1"
+                  id="submenu-bank-settings"
+                >
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-building mr-2 text-xs text-blue-300"></i
+                    >Branch Management
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-sliders-h mr-2 text-xs text-blue-300"></i
+                    >General Settings
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Overdrafts -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-overdrafts')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-credit-card text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Overdrafts</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-overdrafts">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-file-contract mr-2 text-xs text-blue-300"
+                    ></i
+                    >Overdraft Setup
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fa-brands fa-watchman-monitoring mr-2 text-xs text-blue-300"
+                    ></i>
+                    Overdraft Monitoring
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Deposits -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-deposits')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-piggy-bank text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Deposits</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-deposits">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-calendar-alt mr-2 text-xs text-blue-300"
+                    ></i
+                    >Fixed Deposits
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-coins mr-2 text-xs text-blue-300"></i
+                    >Savings Deposits
+                  </li>
+                </ul>
+              </li>
+
+              <!-- General Ledger -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-ledger')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-book text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">General Ledger</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-ledger">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-journal-whills mr-2 text-xs text-blue-300"
+                    ></i
+                    >Journal Entries
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-balance-scale mr-2 text-xs text-blue-300"
+                    ></i
+                    >Trial Balance
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Products -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-products')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-box text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Products</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-products">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-plus mr-2 text-xs text-blue-300"></i
+                    >Product Setup
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-list-alt mr-2 text-xs text-blue-300"></i
+                    >Product Catalog
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Utilities -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-utilities')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-tools text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm">Utilities</span>
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-utilities">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-database mr-2 text-xs text-blue-300"></i
+                    >Database Tools
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-download mr-2 text-xs text-blue-300"></i
+                    >Data Export
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Interest Management -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-interest')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-percentage text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm"
+                    >Interest Management</span
+                  >
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-interest">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-calculator mr-2 text-xs text-blue-300"></i
+                    >Interest Calculation
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-chart-pie mr-2 text-xs text-blue-300"></i
+                    >Rate Management
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Stores and Procurement -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
+                onclick="toggleSubmenu(this, 'submenu-stores')"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                  >
+                    <i class="fas fa-warehouse text-blue-400 text-sm"></i>
+                  </div>
+                  <span class="flex-1 truncate text-sm"
+                    >Stores and Procurement</span
+                  >
+                  <i
+                    class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
+                  ></i>
+                </div>
+                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-stores">
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i
+                      class="fas fa-file-invoice mr-2 text-xs text-blue-300"
+                    ></i
+                    >Purchase Orders
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-truck mr-2 text-xs text-blue-300"></i
+                    >Suppliers
+                  </li>
+                  <li
+                    class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
+                  >
+                    <i class="fas fa-boxes mr-2 text-xs text-blue-300"></i
+                    >Inventory
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Boundary Separator -->
+              <li class="my-2 border-t border-slate-600"></li>
+
+              <!-- Non-submenu Items (static items) -->
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex items-center"
+              >
+                <div
+                  class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                >
+                  <i class="fas fa-file-alt text-blue-400 text-sm"></i>
+                </div>
+                <span class="flex-1 truncate text-sm">Apex Report Viewer</span>
+              </li>
+
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex items-center"
+              >
+                <div
+                  class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                >
+                  <i class="fas fa-sign-out-alt text-red-400 text-sm"></i>
+                </div>
+                <span class="flex-1 truncate text-sm">Log off</span>
+              </li>
+
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex items-center"
+              >
+                <div
+                  class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                >
+                  <i class="fas fa-times-circle text-red-400 text-sm"></i>
+                </div>
+                <span class="flex-1 truncate text-sm">Exit</span>
+              </li>
+
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex items-center"
+              >
+                <div
+                  class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                >
+                  <i class="fas fa-info-circle text-blue-400 text-sm"></i>
+                </div>
+                <span class="flex-1 truncate text-sm">About</span>
+              </li>
+
+              <li
+                class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex items-center"
+              >
+                <div
+                  class="relative mr-3 w-6 h-6 flex items-center justify-center"
+                >
+                  <i class="fas fa-code-branch text-green-400 text-sm"></i>
+                </div>
+                <span class="flex-1 truncate text-sm">Switch Branch</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Collapsed view -->
+        <div class="collapsed-content hidden flex flex-col h-full w-[4rem]">
+          <div
+            class="w-full flex items-center justify-center py-3 px-2 border-b border-slate-700 flex-shrink-0"
+          >
+            <button
+              id="expand-left"
+              class="text-white text-lg hover:text-sky-400"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="flex-1 w-full overflow-y-auto scrollbar-transparent">
+            <!-- fa-cog - System -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-cog text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-project-diagram - Loan Workflow -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-project-diagram text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-users - Customer Information -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-users text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-file-invoice-dollar - Bill Discounting -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-file-invoice-dollar text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-fingerprint - Biometrics -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-fingerprint text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-exchange-alt - Clearing -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-exchange-alt text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-building - Fixed Assets -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-building text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-envelope - Mail Management -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-envelope text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-star - Scoring -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-star text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-handshake - Agency Banking -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-handshake text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-chart-line - Money Markets -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-chart-line text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-shield-alt - System Security -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-shield-alt text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-puzzle-piece - Other Modules -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-puzzle-piece text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-user-circle - Customer Accounts -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-user-circle text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-exchange-alt - Transactions -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-exchange-alt text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-users-cog - Groups -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-users-cog text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-university - Bank Settings -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-university text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-credit-card - Overdrafts -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-credit-card text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-piggy-bank - Deposits -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-piggy-bank text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-book - General Ledger -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-book text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-box - Products -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-box text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-tools - Utilities -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-tools text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-percentage - Interest Management -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-percentage text-xl text-blue-400"></i>
+            </button>
+
+            <!-- fa-warehouse - Stores and Procurement -->
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-warehouse text-xl text-blue-400"></i>
+            </button>
+
+            <div class="border-t border-slate-700 w-full my-2"></div>
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-file-alt text-blue-400 text-xl"></i>
+            </button>
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-sign-out-alt text-red-400 text-xl"></i>
+            </button>
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-times-circle text-red-400 text-xl"></i>
+            </button>
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-info-circle text-blue-400 text-xl"></i>
+            </button>
+            <button
+              class="w-full flex items-center justify-center py-3 text-slate-300 hover:text-sky-400 transition-colors"
+            >
+              <i class="fas fa-code-branch text-green-40 text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Column - Working Area Grid -->
+      <div
+        id="middle-column"
+        class="mobile-tab-content active flex-1 bg-slate-800 text-white overflow-hidden transition-all duration-300 flex flex-col rounded-lg shadow-[0_4px_6px_-1px_rgba(147,51,234,0.3),0_2px_4px_-1px_rgba(147,51,234,0.1)]"
+      >
+        <!-- Header (visible only on desktop) -->
+        <div
+          class="flex items-center justify-between px-5 py-3 border-b border-slate-700 hidden lg:flex"
+        >
+          <h2 class="text-lg font-semibold">Working Area</h2>
+          <button
+            class="text-white text-lg hover:text-sky-400"
+            id="expand-middle"
+          >
+            <i class="fas fa-expand-alt"></i>
+          </button>
+        </div>
+
+        <!-- Working Area -->
+        <div
+          class="overflow-y-auto flex-1 px-5 py-3 space-y-4 scrollbar-transparent"
+          id="chat-messages"
+        >
+          <!-- Jump to Bottom Button -->
+          <button
+            id="jump-to-bottom-btn"
+            class="fixed left-1/2 -translate-x-1/2 bottom-[100px] z-40 bg-indigo-500 text-white rounded-full py-2 px-6 shadow-md hover:bg-indigo-600 focus:outline-none transition-opacity duration-300 opacity-0 pointer-events-none"
+          >
+            Jump to Bottom
+          </button>
+
+          <!-- working grid content should occupy here -->
+
+          <!-- Tabs Navigation Wrapper -->
+          <div
+            class="relative flex items-center border-b border-gray-700 bg-[#1B2233] text-white rounded-full"
+          >
+            <!-- Left Chevron -->
+            <button
+              id="scroll-left"
+              class="h-full px-3 text-gray-400 hover:text-white"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <!-- Scrollable Tab Container -->
+            <div
+              id="tab-scroll"
+              class="flex overflow-x-auto scrollbar-hide space-x-3 px-2 py-2 flex-1 items-center"
+            >
+              <!-- Tabs -->
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Block / Unblock
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Address
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Documents
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Next Of Kin
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Notes
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Customer Specialconditions
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Images
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Indirect Income/Expenses
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Alerts
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Customer Custom Fields
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Accounts in Other Financial Institution
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Employment Info
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Business Info
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Roles
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Client Reminders
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Customer Black Listing
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Identification IDs
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Customer Charge Rates
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Customer LOP Prequalification
+              </button>
+              <button
+                class="whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white font-medium"
+              >
+                Customer Transfer
+              </button>
+            </div>
+
+            <!-- Right Chevron -->
+            <button
+              id="scroll-right"
+              class="h-full px-3 text-gray-400 hover:text-white"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <script>
+            const scrollContainer = document.getElementById("tab-scroll");
+            document
+              .getElementById("scroll-left")
+              .addEventListener("click", () => {
+                scrollContainer.scrollBy({ left: -150, behavior: "smooth" });
+              });
+            document
+              .getElementById("scroll-right")
+              .addEventListener("click", () => {
+                scrollContainer.scrollBy({ left: 150, behavior: "smooth" });
+              });
+          </script>
+
+          <!-- working area content -->
+          <div></div>
+        </div>
+      </div>
+
+      <!-- Right Column - Ai Assistant -->
+      <div
+        id="right-column"
+        class="mobile-tab-content w-full lg:w-16 lg:hover:w-80 bg-slate-800 text-white border-l border-slate-700 transition-all duration-300 flex flex-col rounded-lg shadow-[0_4px_6px_-1px_rgba(147,51,234,0.3),0_2px_4px_-1px_rgba(147,51,234,0.1)] lg:block hidden"
+      >
+        <!-- Expanded view -->
+        <div class="flex flex-col h-full expanded-content">
+          <!-- Header -->
+          <div
+            class="flex items-center justify-between px-5 py-3 border-b border-slate-700"
+          >
+            <h2 class="text-lg font-semibold lg:block hidden">Ai Assistant</h2>
+            <button
+              id="collapse-right"
+              class="text-white text-lg hover:text-sky-400"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Chat Messages Area (scrollable) -->
+          <div
+            class="flex-1 w-full overflow-y-auto scrollbar-transparent"
+            style="min-height: 0"
+          >
+            <div class="p-4 mt-2 space-y-2">
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>How can I help with your notes today?</p>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>
+                    Thanks! Can you also draft an email update for the team?
+                  </p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Here's a draft email you can use:</p>
+                  <div class="bg-gray-800 rounded p-2 text-xs mt-1">
+                    <p>Hi team,</p>
+                    <p>
+                      Here’s a quick update from our last meeting. Please review
+                      your action items and let me know if you have any
+                      questions.
+                    </p>
+                    <p>Best,<br />[Your Name]</p>
+                  </div>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Chat Input (fixed bottom) -->
+            <div
+              class="p-4 border-t border-slate-700 bg-slate-800 sticky bottom-0 z-10"
+            >
+              <div
+                class="flex items-center bg-gray-800 rounded-full px-2 py-1 shadow-inner gap-2 w-full min-w-0"
+              >
+                <!-- Attachment button + hidden file input -->
+                <button
+                  type="button"
+                  id="canvas-attach-btn"
+                  class="text-gray-400 hover:text-blue-500 p-2 rounded-full focus:outline-none flex-shrink-0"
+                  aria-label="Attach file"
+                >
+                  <i class="fa fa-paperclip"></i>
+                </button>
+                <input type="file" id="canvas-file-input" class="hidden" />
+                <!-- Chat input (textarea) -->
+                <textarea
+                  id="canvas-chat-input"
+                  placeholder="Share your story idea and watch it unfold"
+                  class="flex-1 min-w-0 bg-transparent text-white px-2 py-3 focus:outline-none resize-none leading-snug min-h-[3.5em] max-h-[calc(1.5em*9)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-scrollbar:none]"
+                  autocomplete="off"
+                  aria-label="Chat message"
+                  rows="2"
+                  maxlength="2000"
+                ></textarea>
+                <!-- Send button -->
+                <button
+                  type="button"
+                  class="text-gray-400 hover:text-blue-500 p-2 rounded-full focus:outline-none flex-shrink-0"
+                  aria-label="Send message"
+                >
+                  <i class="fa fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Open Canvas Notes Modal -->
+    <div
+      class="modal fixed hidden inset-0 z-50 bg-black bg-opacity-70 w-screen h-screen"
+      id="open-canvas-notes-modal"
+    >
+      <!-- Main container - fills nearly entire screen -->
+      <div class="w-full h-full flex flex-col overflow-hidden">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center p-3">
+          <div class="flex items-center">
+            <button
+              id="open-canvas-notes-modal-back"
+              class="hidden mr-4 text-gray-400 hover:text-white focus:outline-none"
+            >
+              <i class="fas fa-arrow-left text-xl"></i>
+            </button>
+            <h3
+              id="open-canvas-notes-modal-title"
+              class="text-xl font-bold text-white"
+            >
+              Open Canvas Notes
+            </h3>
+          </div>
+          <button
+            type="button"
+            class="modal-close text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+          >
+            <i class="fa-solid fa-xmark"></i>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex flex-1 overflow-hidden gap-x-2">
+          <!-- Left Sidebar (25%) - Chat -->
+          <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg">
+            <!-- Chat Messages -->
+            <div
+              class="flex-1 overflow-y-auto p-4 mt-2 space-y-2 hide-scrollbar"
+              style="scrollbar-width: none; -ms-overflow-style: none"
+            >
+              <style>
+                .hide-scrollbar::-webkit-scrollbar {
+                  display: none;
+                }
+              </style>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>How can I help with your notes today?</p>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>
+                    Thanks! Can you also draft an email update for the team?
+                  </p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Here's a draft email you can use:</p>
+                  <div class="bg-gray-800 rounded p-2 text-xs mt-1">
+                    <p>Hi team,</p>
+                    <p>
+                      Here’s a quick update from our last meeting. Please review
+                      your action items and let me know if you have any
+                      questions.
+                    </p>
+                    <p>Best,<br />[Your Name]</p>
+                  </div>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- User message -->
+              <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Can you summarize my last meeting notes?</p>
+                </div>
+              </div>
+              <!-- Bot message -->
+              <div class="flex items-start">
+                <div class="bg-gray-700 p-3 rounded-lg text-white max-w-[80%]">
+                  <p>Of course! Here is a summary of your last meeting:</p>
+                  <ul class="list-disc pl-5 text-sm mt-1">
+                    <li>Reviewed project timeline and next steps</li>
+                    <li>Assigned action items to team members</li>
+                    <li>Discussed blockers and solutions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-4">
+              <div
+                class="flex items-center bg-gray-800 rounded-full px-2 py-1 shadow-inner gap-2 w-full min-w-0"
+              >
+                <!-- Attachment button + hidden file input -->
+                <button
+                  type="button"
+                  id="canvas-attach-btn"
+                  class="text-gray-400 hover:text-blue-500 p-2 rounded-full focus:outline-none flex-shrink-0"
+                  aria-label="Attach file"
+                >
+                  <i class="fa fa-paperclip"></i>
+                </button>
+                <input type="file" id="canvas-file-input" class="hidden" />
+                <!-- Chat input (textarea) -->
+                <textarea
+                  id="canvas-chat-input"
+                  placeholder="Share your story idea and watch it unfold"
+                  class="flex-1 min-w-0 bg-transparent text-white px-2 py-3 focus:outline-none resize-none leading-snug"
+                  autocomplete="off"
+                  aria-label="Chat message"
+                  rows="2"
+                  maxlength="2000"
+                  style="
+                    min-height: 3.5em;
+                    max-height: calc(1.5em * 9);
+                    overflow-y: auto;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
+                  "
+                ></textarea>
+                <style>
+                  #canvas-chat-input::-webkit-scrollbar {
+                    display: none;
+                  }
+                </style>
+                <!-- Send button -->
+                <button
+                  type="button"
+                  class="text-gray-400 hover:text-blue-500 p-2 rounded-full focus:outline-none flex-shrink-0"
+                  aria-label="Send message"
+                >
+                  <i class="fa fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Content Area (50%) - Quill Rich Text Editor -->
+          <div class="w-2/4 flex flex-col bg-gray-900 rounded-lg main-editor">
+            <div id="editor" class="flex-1 bg-slate-800 text-white rounded-lg">
+              <h1>AI-Enhanced Document Editor</h1>
+              <p>
+                This is a sample document with rich text editing capabilities.
+                Select any text to see AI integration features.
+              </p>
+
+              <h2>Key Features</h2>
+              <p>
+                You can highlight text, and the AI panel will show exactly where
+                in the document you've selected. This enables precise AI
+                assistance for content editing, expansion, or explanation.
+              </p>
+
+              <h3>How it Works</h3>
+              <ul>
+                <li>Select any text in this editor</li>
+                <li>See the selection details in the right panel</li>
+                <li>Use AI actions to modify or enhance your content</li>
+                <li>AI responses are inserted at the exact location</li>
+              </ul>
+
+              <p>
+                The system tracks the exact position of your selections, making
+                it perfect for collaborative editing with AI assistance.
+              </p>
+
+              <blockquote>
+                "The future of content creation is the seamless integration of
+                human creativity with AI assistance."
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Right Sidebar (25%) - Ai Tools -->
+          <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg ai-panel">
+            <div class="flex-1 w-full overflow-y-auto scrollbar-transparent">
+              <div class="p-4">
+                <div
+                  class="selection-info bg-slate-700 rounded-lg border-l-4 border-sky-500 mb-4"
+                >
+                  <h3 class="text-slate-200 text-sm font-semibold p-4">
+                    Selected Content
+                  </h3>
+                  <div
+                    class="selected-text bg-slate-900 p-3 rounded border border-slate-600 italic"
+                    id="selectedText"
+                  >
+                    Select text in the editor to see it here...
+                  </div>
+                  <div
+                    class="position-info text-xs text-slate-400 p-4"
+                    id="positionInfo"
+                  >
+                    Position: No selection
+                  </div>
+                </div>
+
+                <div class="ai-actions flex flex-col gap-2">
+                  <button
+                    class="ai-btn primary py-2 px-4 rounded bg-sky-500 hover:bg-sky-600 transition-colors text-white text-sm font-medium"
+                    id="explainBtn"
+                    disabled
+                  >
+                    🧠 Explain This
+                  </button>
+                  <button
+                    class="ai-btn primary py-2 px-4 rounded bg-sky-500 hover:bg-sky-600 transition-colors text-white text-sm font-medium"
+                    id="expandBtn"
+                    disabled
+                  >
+                    📝 Expand Content
+                  </button>
+                  <button
+                    class="ai-btn secondary py-2 px-4 rounded bg-slate-600 hover:bg-slate-700 transition-colors text-white text-sm font-medium"
+                    id="summarizeBtn"
+                    disabled
+                  >
+                    📋 Summarize
+                  </button>
+                  <button
+                    class="ai-btn secondary py-2 px-4 rounded bg-slate-600 hover:bg-slate-700 transition-colors text-white text-sm font-medium"
+                    id="improveBtn"
+                    disabled
+                  >
+                    ✨ Improve Writing
+                  </button>
+                </div>
+
+                <div
+                  class="relative w-full max-w-xl flex items-center bg-gray-800 shadow-inner px-4 mt-2 rounded-lg"
+                >
+                  <button
+                    id="ai-attach-right"
+                    class="absolute left-3 top-4 text-gray-400 hover:text-sky-400 transition-colors text-lg focus:outline-none bg-transparent border-none cursor-pointer"
+                    title="Attach"
+                    type="button"
+                  >
+                    <i class="fas fa-paperclip"></i>
+                  </button>
+                  <input type="file" id="ai-file-input-right" class="hidden" />
+                  <textarea
+                    id="ai-text-input-right"
+                    class="flex-1 bg-transparent text-white text-sm font-medium placeholder-gray-400 focus:outline-none px-8 resize-none border-none shadow-none custom-textarea"
+                    placeholder="Share your story idea and watch it unfold"
+                    autocomplete="off"
+                    rows="3"
+                  ></textarea>
+                  <button
+                    id="ai-text-send-right"
+                    class="absolute right-3 top-4 flex items-center justify-center text-gray-400 hover:text-sky-400 transition-colors text-lg focus:outline-none bg-transparent border-none cursor-pointer rounded-l-full"
+                    title="Send"
+                    type="button"
+                  >
+                    <i class="fas fa-paper-plane"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.js"></script>
+    <script src="js/collection.js"></script>
+    <script src="js/openCanvas.js"></script>
+    <script>
+      let activeSubmenu = null;
+
+      // Ensure all submenus are collapsed by default on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .querySelectorAll("[id^='submenu-']")
+          .forEach(function (submenu) {
+            submenu.classList.add("hidden");
+          });
+        document.querySelectorAll(".chevron").forEach(function (chevron) {
+          chevron.classList.remove("rotate-90");
+        });
+        activeSubmenu = null;
+      });
+
+      function toggleSubmenu(element, submenuId) {
+        const chevron = element.querySelector(".chevron");
+        const submenu = document.getElementById(submenuId);
+
+        // Collapse all submenus and reset all chevrons
+        document.querySelectorAll("[id^='submenu-']").forEach(function (sm) {
+          sm.classList.add("hidden");
+        });
+        document.querySelectorAll(".chevron").forEach(function (ch) {
+          ch.classList.remove("rotate-90");
+        });
+
+        // If the clicked submenu was not already open, open it
+        if (activeSubmenu !== submenuId) {
+          submenu.classList.remove("hidden");
+          chevron.classList.add("rotate-90");
+          activeSubmenu = submenuId;
+        } else {
+          // If it was open, close it
+          activeSubmenu = null;
+        }
+      }
+    </script>
+  </body>
+</html>
