@@ -30,7 +30,6 @@
 .tabs-navigation-wrapper i,
 .relative.flex.items-center.rounded-full i {
   display: block;
-  vertical-align: middle;
   font-size: 22px;
   line-height: 1;
 }

@@ -1684,7 +1684,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ================================
 
 (function () {
-  const chatMessages = document.getElementById("chat-messages");
+  const chatMessages = document.getElementById("ai-chat-messages");
   const jumpBtn = document.getElementById("jump-to-bottom-btn");
 
   function atBottom() {
