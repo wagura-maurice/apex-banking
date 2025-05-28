@@ -236,7 +236,7 @@ header {
 /* ============================================ */
 /* === CONTENT SECTIONS === */
 /* ============================================ */
-#ai-chat-messages {
+.ai-chat-messages {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -524,7 +524,7 @@ header {
   justify-content: center;
 }
 
-#jump-to-bottom-btn {
+.jump-to-bottom-btn {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -542,12 +542,12 @@ header {
   transition: opacity 0.3s;
 }
 
-#jump-to-bottom-btn.show {
+.jump-to-bottom-btn.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-#jump-to-bottom-btn:hover {
+.jump-to-bottom-btn:hover {
   background: var(--indigo-600);
 }
 

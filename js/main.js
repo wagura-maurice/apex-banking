@@ -31,7 +31,7 @@ const SELECTORS = {
 
   // Chat
   chatInput: ".ai-chat-chat-input",
-  chatMessages: "#ai-chat-messages",
+  chatMessages: ".ai-chat-messages",
   sendMessage: "[aria-label='Send message']",
   chatAttach: ".ai-chat-attach-btn",
   chatFileInput: ".ai-chat-file-input",
@@ -54,7 +54,7 @@ const SELECTORS = {
   tabContent: ".tab-content",
 
   // Jump to Bottom
-  jumpToBottomBtn: "#jump-to-bottom-btn",
+  jumpToBottomBtn: ".jump-to-bottom-btn",
 };
 
 const CLASSES = {
@@ -890,12 +890,16 @@ const TabScroll = {
     });
 
     // Enable horizontal scroll on mouse wheel (vertical axis)
-    scrollContainer.addEventListener("wheel", (e) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        scrollContainer.scrollBy({ left: e.deltaY, behavior: "auto" });
-      }
-    }, { passive: false });
+    scrollContainer.addEventListener(
+      "wheel",
+      (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          scrollContainer.scrollBy({ left: e.deltaY, behavior: "auto" });
+        }
+      },
+      { passive: false }
+    );
 
     const updateScrollButtons = Utils.debounce(() => {
       const isAtStart = scrollContainer.scrollLeft <= 0;
