@@ -60,7 +60,7 @@
     />
 
     <!-- Custom CSS -->
-    <link href="./css/collection.css" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
     <link href="./css/openCanvas.css" rel="stylesheet" />
   </head>
 
@@ -1487,24 +1487,30 @@
           >
             <!-- Individual Customers Tab (Default) -->
             <div id="main" class="tab-content active">
-              <div class="flex flex-col bg-[#1B2233] text-white p-5 rounded-lg">
-                <h3 class="text-lg font-semibold">Individual Customers</h3>
-                <div id="address-content" class="text-gray-300">
-                  <p>
-                    Select a customer from the Customer Summary tab to view
-                    their address details.
-                  </p>
-                </div>
-
-                <!-- New Customer Button -->
-                <!-- <div class="flex justify-end">
+              <div class="flex flex-col space-y-2">
+                <!-- Header and Button Row -->
+                <div
+                  class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0"
+                >
+                  <h3 class="text-xl font-bold text-center sm:text-left">
+                    Individual Customers
+                  </h3>
                   <button
                     id="new-customer-btn"
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center gap-2 w-full sm:w-auto justify-center"
                   >
-                    <i class="fas fa-plus mr-2"></i> New Customer
+                    <i class="fas fa-plus"></i>
+                    New Customer
                   </button>
-                </div> -->
+                </div>
+
+                <!-- Paragraph directly under the title -->
+                <p
+                  class="text-sm text-gray-300 text-center sm:text-left px-2 sm:px-0"
+                >
+                  Select a customer from the Customer Summary tab to view their
+                  address details.
+                </p>
               </div>
               <div
                 class="flex flex-col flex-1 bg-[#1B2233] text-white p-3 space-y-4 rounded-lg mt-4"
@@ -1606,7 +1612,7 @@
                         <td class="px-4 py-2">Active</td>
                         <td class="px-4 py-2 relative">
                           <button
-                            class="actions-menu-button text-white hover:text-indigo-400"
+                            class="dropdown-toggle text-white hover:text-indigo-400"
                           >
                             <i class="fas fa-ellipsis-vertical"></i>
                           </button>
@@ -1652,7 +1658,7 @@
                         <td class="px-4 py-2">Inactive</td>
                         <td class="px-4 py-2 relative">
                           <button
-                            class="actions-menu-button text-white hover:text-indigo-400"
+                            class="dropdown-toggle text-white hover:text-indigo-400"
                           >
                             <i class="fas fa-ellipsis-vertical"></i>
                           </button>
@@ -2293,7 +2299,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill-table-better@1/dist/quill-table-better.js"></script>
-    <script src="js/collection.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/openCanvas.js"></script>
   </body>
 </html>
