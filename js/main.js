@@ -768,17 +768,17 @@ const ModalHandling = {
         this.closeModal(e);
         return;
       }
-      // Console log for modal overlay/content distinction
-      const modalOverlay = e.target.classList.contains("modal")
-        ? e.target
-        : null;
-      if (modalOverlay && e.target === e.currentTarget) {
+      // Only close if click is directly on the modal overlay, not on modal-content or its children
+      if (
+        e.target.classList.contains("modal") &&
+        !e.target.closest(".modal-content")
+      ) {
         console.log("Clicked outside modal (overlay)");
         this.closeModal(e);
         return;
       }
       // If click is inside modal content (but not overlay)
-      if (e.target.closest(SELECTORS.modal)) {
+      if (e.target.closest(".modal-content")) {
         console.log("Clicked inside modal content");
       }
     });
