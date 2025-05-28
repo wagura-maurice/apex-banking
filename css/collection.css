@@ -114,7 +114,7 @@ body {
 
 /* Left Column */
 #left-column {
-  width: 27.5%;
+  width: 17.5%;
   min-width: 250px;
   display: flex;
   flex-direction: column;
@@ -533,7 +533,7 @@ header {
 }
 
 /* Custom Checkbox */
-.source-checkbox {
+.checkbox {
   appearance: none;
   width: 1rem;
   height: 1rem;
@@ -543,12 +543,12 @@ header {
   position: relative;
 }
 
-.source-checkbox:checked {
+.checkbox:checked {
   background-color: var(--sky-400);
   border-color: var(--sky-400);
 }
 
-.source-checkbox:checked::after {
+.checkbox:checked::after {
   content: "\f00c";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
