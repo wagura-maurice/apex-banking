@@ -1938,21 +1938,29 @@
         class="modal-content bg-gray-900 w-full h-full overflow-hidden p-0 m-0 rounded-none shadow-none"
       >
         <!-- Modal Header -->
-        <div class="flex justify-between items-center p-3">
-          <div class="flex items-center">
-            <button
-              id="create-customer-modal-back"
-              class="hidden mr-4 text-gray-400 hover:text-white focus:outline-none"
-            >
-              <i class="fas fa-arrow-left text-xl"></i>
-            </button>
-            <h3
-              id="create-customer-modal-title"
-              class="text-xl font-bold text-white"
-            >
-              Create Customer
-            </h3>
+        <div class="flex justify-between items-start p-5">
+          <div class="flex flex-col">
+            <div class="flex items-center">
+              <button
+                id="create-customer-modal-back"
+                class="hidden mr-4 text-gray-400 hover:text-white focus:outline-none"
+              >
+                <i class="fas fa-arrow-left text-xl"></i>
+              </button>
+              <h3
+                id="create-customer-modal-title"
+                class="text-xl font-bold text-white"
+              >
+                Create New Customer
+              </h3>
+            </div>
+            <!-- Description Paragraph -->
+            <p class="text-sm text-gray-400 mt-1">
+              Use this form to create a new customer by entering their details
+              into the system.
+            </p>
           </div>
+
           <button
             type="button"
             class="modal-close text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
@@ -1961,30 +1969,271 @@
             <span class="sr-only">Close modal</span>
           </button>
         </div>
+
         <!-- Main Content Area -->
-        <div class="flex overflow-hidden gap-x-2 p-3">
+        <div class="flex overflow-hidden gap-x-2 p-5">
           <!-- Left Sidebar (25%) - Chat -->
-          <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg ai-panel">
+          <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg">
+            <!-- Chat Messages Area (scrollable) -->
+            <div class="flex-1 w-full overflow-y-auto scrollbar-transparent">
+              <div class="ai-chat-messages p-4 mt-2 space-y-2">
+                <!-- Jump to Bottom Button (Ai Assistant only) -->
+                <button
+                  class="jump-to-bottom-btn fixed right-8 bottom-[100px] z-40 bg-indigo-500 text-white rounded-full py-2 px-6 shadow-md hover:bg-indigo-600 focus:outline-none transition-opacity duration-300 opacity-0 pointer-events-none"
+                >
+                  Jump to Bottom
+                </button>
+                <!-- Bot message -->
+                <div class="flex items-start">
+                  <div class="message-bubble ai relative">
+                    <p>How can I help with your notes today?</p>
+                    <div class="message-time text-gray-200">
+                      10:13 AM Tuesday 13th 2024
+                    </div>
+                  </div>
+                </div>
+                <!-- User message -->
+                <div class="flex items-start justify-end">
+                  <div class="message-bubble user relative">
+                    <p>Can you summarize my last meeting notes?</p>
+                    <div class="message-time text-gray-200">
+                      10:14 AM Tuesday 13th 2024
+                    </div>
+                  </div>
+                </div>
+                <!-- Bot message -->
+                <div class="flex items-start">
+                  <div class="message-bubble ai relative">
+                    <p>Of course! Here is a summary of your last meeting:</p>
+                    <ul class="list-disc pl-5 text-sm mt-1">
+                      <li>Reviewed project timeline and next steps</li>
+                      <li>Assigned action items to team members</li>
+                      <li>Discussed blockers and solutions</li>
+                    </ul>
+                    <div class="message-time text-gray-200">
+                      10:15 AM Tuesday 13th 2024
+                    </div>
+                  </div>
+                </div>
+                <!-- User message -->
+                <div class="flex items-start justify-end">
+                  <div class="message-bubble user relative">
+                    <p>
+                      Thanks! Can you also draft an email update for the team?
+                    </p>
+                    <div class="message-time text-gray-200">
+                      10:16 AM Tuesday 13th 2024
+                    </div>
+                  </div>
+                </div>
+                <!-- Bot message -->
+                <div class="flex items-start">
+                  <div class="message-bubble ai relative">
+                    <p>Here's a draft email you can use:</p>
+                    <div class="bg-gray-800 rounded p-2 text-xs mt-1">
+                      <p>Hi team,</p>
+                      <p>
+                        Here’s a quick update from our last meeting. Please
+                        review your action items and let me know if you have any
+                        questions.
+                      </p>
+                      <p>Best,<br />[Your Name]</p>
+                    </div>
+                    <div class="message-time text-gray-200">
+                      10:17 AM Tuesday 13th 2024
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Input (fixed bottom) -->
             <div
-              class="flex-1 w-full overflow-y-auto py-1 scrollbar-transparent"
+              class="p-4 border-t border-slate-700 bg-gray-900 sticky bottom-0 z-10"
             >
-              <!-- Content Area -->
+              <div
+                class="flex items-center bg-gray-800 rounded-full px-2 py-1 shadow-inner gap-2 w-full min-w-0"
+              >
+                <!-- Attachment button + hidden file input -->
+                <button
+                  type="button"
+                  class="ai-chat-attach-btn text-gray-400 hover:text-blue-500 p-2 rounded-full focus:outline-none flex-shrink-0"
+                  aria-label="Attach file"
+                >
+                  <i class="fa fa-paperclip"></i>
+                </button>
+                <input type="file" class="ai-chat-file-input hidden" />
+                <!-- Chat input (textarea) -->
+                <textarea
+                  placeholder="Share your story idea and watch it unfold"
+                  class="ai-chat-chat-input flex-1 min-w-0 bg-transparent text-white px-2 py-3 focus:outline-none resize-none leading-snug min-h-[3.5em] max-h-[calc(1.5em*9)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-scrollbar:none]"
+                  autocomplete="off"
+                  aria-label="Chat message"
+                  rows="2"
+                  maxlength="2000"
+                ></textarea>
+                <!-- Send button -->
+                <button
+                  type="button"
+                  class="text-gray-400 hover:text-blue-500 p-2 rounded-full focus:outline-none flex-shrink-0"
+                  aria-label="Send message"
+                >
+                  <i class="fa fa-paper-plane"></i>
+                </button>
+              </div>
             </div>
           </div>
 
           <!-- Middle Content Area (50%) - Quill Rich Text Editor -->
           <div class="w-2/4 flex flex-col bg-gray-900 rounded-lg main-editor">
-            <div class="flex-1 bg-slate-800 text-white rounded-lg">
-              <!-- Content Area -->
+            <div
+              class="flex-1 bg-gray-900 text-white p-6 overflow-y-auto space-y-6"
+            >
+              <!-- Full Name -->
+              <div>
+                <label
+                  for="full-name"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  id="full-name"
+                  name="full-name"
+                  placeholder="John Doe"
+                  class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="example@mail.com"
+                  class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <!-- Phone Number -->
+              <div>
+                <label
+                  for="phone"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                  >Phone Number</label
+                >
+                <input
+                  type="number"
+                  id="phone"
+                  name="phone"
+                  placeholder="+1234567890"
+                  class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <!-- Date of Birth -->
+              <div>
+                <label
+                  for="dob"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                  >Date of Birth</label
+                >
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <!-- Customer Type (Dropdown) -->
+              <div>
+                <label
+                  for="customer-type"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                  >Customer Type</label
+                >
+                <select
+                  id="customer-type"
+                  name="customer-type"
+                  class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="">Select a type</option>
+                  <option value="individual">Individual</option>
+                  <option value="business">Business</option>
+                  <option value="vip">VIP</option>
+                </select>
+              </div>
+
+              <!-- File Upload (Drop Zone Style) -->
+              <div
+                class="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center bg-gray-800"
+              >
+                <p class="text-gray-400 mb-2">
+                  Drag and drop a file here or click to upload
+                </p>
+                <input type="file" id="file-upload" class="hidden" />
+                <label
+                  for="file-upload"
+                  class="cursor-pointer inline-block px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                >
+                  Upload File
+                </label>
+              </div>
             </div>
           </div>
 
           <!-- Right Sidebar (25%) - Ai Tools -->
-          <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg ai-panel">
+          <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg">
             <div
               class="flex-1 w-full overflow-y-auto py-1 scrollbar-transparent"
             >
-              <!-- Content Area -->
+              <div class="p-3">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam
+                harum dolorem, optio saepe nam similique et voluptates aperiam
+                dolorum ipsam, cupiditate voluptate alias? Et sequi maxime ad!
+                Aut, quisquam perferendis? Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Asperiores, nostrum neque.
+                Mollitia, doloribus iste! Reprehenderit expedita voluptates
+                adipisci, ea molestiae optio odio quasi minima quo accusantium
+                nulla beatae maiores iure! Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Illum nihil quis officiis, animi
+                voluptate nam reiciendis atque corrupti sunt explicabo similique
+                rem fuga repudiandae, officia porro accusamus, iste sapiente
+                voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Ducimus enim veniam est, nihil repellat ratione quo rerum
+                fugit asperiores adipisci sint corporis quae facere impedit ut
+                iste! Voluptatibus, accusantium facilis. Lorem ipsum dolor sit
+                amet, consectetur adipisicing elit. Laborum nesciunt iusto
+                repudiandae libero blanditiis alias non nihil aut. Dolorem
+                quibusdam, fugit harum provident recusandae porro repudiandae
+                omnis consequuntur aliquid atque. Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Fugit consectetur soluta unde
+                excepturi veniam molestias alias voluptate repellendus facilis
+                officiis. Voluptate mollitia placeat numquam sed explicabo
+                quaerat, perferendis repudiandae magnam. Lorem ipsum dolor sit
+                amet consectetur adipisicing elit. Obcaecati placeat quaerat
+                harum odio, doloremque est pariatur nemo non quis quod facere
+                perferendis officia tempore laboriosam dolorem velit. Est,
+                nostrum minus. Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Excepturi porro dolores maiores officia, eaque
+                repellendus dolorum omnis perspiciatis itaque enim animi
+                voluptatibus inventore atque incidunt fugit asperiores beatae
+                magnam commodi! Lorem ipsum dolor sit amet consectetur,
+                adipisicing elit. Possimus suscipit rerum adipisci alias quasi
+                molestiae iusto non enim. Dolorum incidunt cum reprehenderit
+                omnis esse sequi totam debitis, nobis laborum id. Lorem ipsum
+                dolor sit amet consectetur adipisicing elit. Similique veniam
+                repellat hic repudiandae minus rerum, est magnam odio dolorum
+                nemo sequi molestias quod rem exercitationem magni pariatur
+                tempore! Consequuntur, qui!
+              </div>
             </div>
           </div>
         </div>
