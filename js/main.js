@@ -762,10 +762,17 @@ const TableFunctionality = {
 const ModalHandling = {
   init: function () {
     document.addEventListener("click", (e) => {
-      if (e.target.matches(SELECTORS.modalClose)) {
+      // Close modal on .modal-close (close icon, cancel button, etc.)
+      const closeBtn = e.target.closest(SELECTORS.modalClose);
+      if (closeBtn) {
         this.closeModal(e);
-      } else if (e.target.matches(SELECTORS.modal)) {
+        return;
+      }
+      // Close modal on clicking overlay (outside modal content)
+      const modalOverlay = e.target.classList.contains('modal') ? e.target : null;
+      if (modalOverlay) {
         this.closeModalOnClickOutside(e);
+        return;
       }
     });
 
@@ -786,11 +793,15 @@ const ModalHandling = {
 
   closeModal: function (e) {
     e.preventDefault();
-    e.stopPropagation();
-    e.target.closest(SELECTORS.modal)?.classList.add(CLASSES.hidden);
+    // Find the closest modal ancestor and hide it
+    const modal = e.target.closest(SELECTORS.modal);
+    if (modal) {
+      modal.classList.add(CLASSES.hidden);
+    }
   },
 
   closeModalOnClickOutside: function (e) {
+    // Only close if the user clicked directly on the overlay (not modal content)
     if (e.target === e.currentTarget) {
       e.currentTarget.classList.add(CLASSES.hidden);
     }
