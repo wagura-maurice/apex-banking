@@ -772,6 +772,7 @@ document.addEventListener("DOMContentLoaded", () => {
   Preloader.init();
   ChatSuggestions.init();
   MobileTabs.init();
+  TabsNavigation.init();
   ColumnToggles.init();
   DropdownMenus.init();
   ChatFunctionality.init();
@@ -782,3 +783,58 @@ document.addEventListener("DOMContentLoaded", () => {
   TabScroll.init();
   SubmenuToggle.init();
 });
+
+/* ============================================ */
+/* === MODULE: TABS NAVIGATION === */
+/* ============================================ */
+const TabsNavigation = {
+  defaultTab: "main",
+  tabBtnSelector: ".tab-btn",
+  tabContentSelector: ".tab-content",
+
+  init: function () {
+    this.bindEvents();
+    this.showTab(this.getInitialTab());
+  },
+
+  bindEvents: function () {
+    document.querySelectorAll(this.tabBtnSelector).forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const tab = btn.getAttribute("data-tab");
+        if (tab) this.showTab(tab);
+      });
+    });
+  },
+
+  getInitialTab: function () {
+    // Find the first button with 'active' or fallback to defaultTab
+    const activeBtn = document.querySelector(`${this.tabBtnSelector}.active`);
+    return activeBtn ? activeBtn.getAttribute("data-tab") : this.defaultTab;
+  },
+
+  showTab: function (tab) {
+    // Update tab buttons
+    document.querySelectorAll(this.tabBtnSelector).forEach((btn) => {
+      if (btn.getAttribute("data-tab") === tab) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+    // Update tab content
+    document.querySelectorAll(this.tabContentSelector).forEach((content) => {
+      if (content.id === tab) {
+        content.classList.add("active");
+        content.classList.remove("inactive");
+        content.classList.remove("hidden");
+        content.style.display = "block";
+      } else {
+        content.classList.remove("active");
+        content.classList.add("inactive");
+        content.classList.add("hidden");
+        content.style.display = "none";
+      }
+    });
+  },
+};
+

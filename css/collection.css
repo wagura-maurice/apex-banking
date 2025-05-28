@@ -3,6 +3,36 @@
 /* ============================================ */
 
 /* Tabs Navigation Wrapper Alignment Fixes */
+
+/* Main Tab Custom Style */
+.main-tab {
+  background: linear-gradient(
+    90deg,
+    var(--indigo-600) 0%,
+    var(--sky-400) 100%
+  ) !important;
+  color: #fff !important;
+  font-weight: 700;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px 0 rgba(56, 189, 248, 0.08);
+  border: 2px solid var(--sky-400);
+  letter-spacing: 0.5px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.main-tab.active,
+.main-tab:focus,
+.main-tab:hover {
+  background: linear-gradient(
+    90deg,
+    var(--sky-400) 0%,
+    var(--indigo-600) 100%
+  ) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 16px 0 rgba(56, 189, 248, 0.15);
+  border-color: var(--indigo-600);
+}
+
 .tabs-navigation-wrapper,
 .relative.flex.items-center.rounded-full {
   display: flex;
