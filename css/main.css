@@ -502,6 +502,15 @@ header {
   flex-direction: column;
 }
 
+/* Make full-screen modal content truly full screen and remove constraints */
+.modal-content.w-full.h-full {
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
 /* ============================================ */
 /* === UTILITY CLASSES === */
 /* ============================================ */
