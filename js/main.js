@@ -889,6 +889,14 @@ const TabScroll = {
       scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
     });
 
+    // Enable horizontal scroll on mouse wheel (vertical axis)
+    scrollContainer.addEventListener("wheel", (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        scrollContainer.scrollBy({ left: e.deltaY, behavior: "auto" });
+      }
+    }, { passive: false });
+
     const updateScrollButtons = Utils.debounce(() => {
       const isAtStart = scrollContainer.scrollLeft <= 0;
       const isAtEnd =
