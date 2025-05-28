@@ -779,7 +779,7 @@ document.addEventListener("DOMContentLoaded", () => {
   MessageActions.init();
 
   // Show Delete Customer Modal when delete action is clicked
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     // Handle delete action
     const deleteAction = e.target.closest('[data-action="delete"]');
     if (deleteAction) {
@@ -789,10 +789,12 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("hidden");
       }
       // Hide any open dropdowns
-      const openDropdowns = document.querySelectorAll('.actions-menu-dropdown.show');
-      openDropdowns.forEach(dropdown => {
-        dropdown.classList.remove('show');
-        dropdown.classList.add('hidden');
+      const openDropdowns = document.querySelectorAll(
+        ".actions-menu-dropdown.show"
+      );
+      openDropdowns.forEach((dropdown) => {
+        dropdown.classList.remove("show");
+        dropdown.classList.add("hidden");
       });
       return;
     }
@@ -801,15 +803,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (viewDetailsAction) {
       e.preventDefault();
       // Find and click the address tab button
-      const addressTabBtn = document.querySelector('.tab-btn[data-tab="address"]');
+      const addressTabBtn = document.querySelector(
+        '.tab-btn[data-tab="address"]'
+      );
       if (addressTabBtn) {
         addressTabBtn.click();
       }
       // Hide any open dropdowns
-      const openDropdowns = document.querySelectorAll('.actions-menu-dropdown.show');
-      openDropdowns.forEach(dropdown => {
-        dropdown.classList.remove('show');
-        dropdown.classList.add('hidden');
+      const openDropdowns = document.querySelectorAll(
+        ".actions-menu-dropdown.show"
+      );
+      openDropdowns.forEach((dropdown) => {
+        dropdown.classList.remove("show");
+        dropdown.classList.add("hidden");
       });
       return;
     }
@@ -822,11 +828,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show pen canvas modal when New Customer is clicked
   const newCustomerBtn = document.getElementById("new-customer-btn");
-  const canvasModal = document.getElementById("open-canvas-notes-modal");
-  if (newCustomerBtn && canvasModal) {
-    newCustomerBtn.addEventListener("click", function(e) {
+  const createCustomerModal = document.getElementById("create-customer-modal");
+  if (newCustomerBtn && createCustomerModal) {
+    newCustomerBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      canvasModal.classList.remove("hidden");
+      createCustomerModal.classList.remove("hidden");
     });
   }
 });
@@ -884,4 +890,3 @@ const TabsNavigation = {
     });
   },
 };
-
