@@ -34,7 +34,7 @@ const SELECTORS = {
   // Notes
   noteItem: ".note-item",
   noteMenuToggle: ".note-menu-toggle",
-  menuDropdown: ".menu-dropdown",
+  actionsMenuDropdown: ".actions-menu-dropdown",
 
   // Chat
   chatInput: "#chat-input",
@@ -366,7 +366,11 @@ const DropdownMenus = {
         SELECTORS.noteMenuToggle,
         this.handleNoteMenuToggle.bind(this)
       )
-      .on("click", "#notes-menu-button", this.handleNotesMenuButton.bind(this))
+      .on(
+        "click",
+        "#actions-menu-button",
+        this.handleNotesMenuButton.bind(this)
+      )
       .on("click", this.handleDocumentClick.bind(this));
   },
 
@@ -406,7 +410,7 @@ const DropdownMenus = {
   handleDocumentClick: function (e) {
     if (
       !$(e.target).closest("#menu-dropdown").length &&
-      !$(e.target).closest("#notes-menu-button").length
+      !$(e.target).closest("#actions-menu-button").length
     ) {
       $("#menu-dropdown").addClass("hidden");
     }
@@ -746,3 +750,119 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   observer.observe(chatMessages, { childList: true, subtree: true });
 })();
+
+// the code above is the origial code the code below is new code that has been in the colltion .html file but has now been moved here
+
+let activeSubmenu = null;
+
+// Ensure all submenus are collapsed by default on page load
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("[id^='submenu-']").forEach(function (submenu) {
+    submenu.classList.add("hidden");
+  });
+  document.querySelectorAll(".chevron").forEach(function (chevron) {
+    chevron.classList.remove("rotate-90");
+  });
+  activeSubmenu = null;
+});
+
+function toggleSubmenu(element, submenuId) {
+  const chevron = element.querySelector(".chevron");
+  const submenu = document.getElementById(submenuId);
+
+  // Collapse all submenus and reset all chevrons
+  document.querySelectorAll("[id^='submenu-']").forEach(function (sm) {
+    sm.classList.add("hidden");
+  });
+  document.querySelectorAll(".chevron").forEach(function (ch) {
+    ch.classList.remove("rotate-90");
+  });
+
+  // If the clicked submenu was not already open, open it
+  if (activeSubmenu !== submenuId) {
+    submenu.classList.remove("hidden");
+    chevron.classList.add("rotate-90");
+    activeSubmenu = submenuId;
+  } else {
+    // If it was open, close it
+    activeSubmenu = null;
+  }
+}
+
+const scrollContainer = document.getElementById("tab-scroll");
+const leftBtn = document.getElementById("scroll-left");
+const rightBtn = document.getElementById("scroll-right");
+
+// Scroll functionality
+leftBtn.addEventListener("click", () => {
+  scrollContainer.scrollBy({ left: -200, behavior: "smooth" });
+});
+
+rightBtn.addEventListener("click", () => {
+  scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
+});
+
+// Tab switching functionality
+const tabs = document.querySelectorAll(".tab-button");
+const contents = document.querySelectorAll(".content-area");
+
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const tabId = tab.getAttribute("data-tab");
+
+    // Remove active class from all tabs
+    tabs.forEach((t) => t.classList.remove("active"));
+    // Add active class to clicked tab
+    tab.classList.add("active");
+
+    // Hide all content areas
+    contents.forEach((content) => {
+      content.classList.remove("active");
+    });
+
+    // Show selected content area with animation delay
+    setTimeout(() => {
+      const targetContent = document.getElementById(`content-${tabId}`);
+      if (targetContent) {
+        targetContent.classList.add("active");
+      }
+    }, 150);
+  });
+});
+
+// Update scroll button states
+function updateScrollButtons() {
+  const isAtStart = scrollContainer.scrollLeft <= 0;
+  const isAtEnd =
+    scrollContainer.scrollLeft >=
+    scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+  leftBtn.style.opacity = isAtStart ? "0.5" : "1";
+  rightBtn.style.opacity = isAtEnd ? "0.5" : "1";
+}
+
+scrollContainer.addEventListener("scroll", updateScrollButtons);
+updateScrollButtons();
+
+// Simulate session activity
+function simulateSessionActivity() {
+  const sessionIndicator = document.querySelector(".session-indicator");
+  // Add any session-related functionality here
+}
+
+// Initialize session simulation
+setInterval(simulateSessionActivity, 5000);
+
+// Advanced search toggle
+document
+  .getElementById("toggle-advanced-search")
+  .addEventListener("click", () => {
+    document.getElementById("advanced-search").classList.toggle("hidden");
+  });
+
+// Select all checkboxes
+document.getElementById("select-all").addEventListener("change", function () {
+  document
+    .querySelectorAll(".select-row")
+    .forEach((cb) => (cb.checked = this.checked));
+});

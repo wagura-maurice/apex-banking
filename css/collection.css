@@ -203,92 +203,6 @@ header {
 /* ============================================ */
 /* === CONTENT SECTIONS === */
 /* ============================================ */
-/* Scroll Containers */
-.collapsed-content,
-.source-list-container,
-.note-list-container {
-  max-height: calc(100vh - 8rem);
-  overflow-y: auto;
-  padding-right: 0.5rem;
-  height: 100%;
-  box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: var(--slate-600) var(--slate-800);
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-}
-
-.collapsed-content::-webkit-scrollbar,
-.source-list-container::-webkit-scrollbar,
-.note-list-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.collapsed-content::-webkit-scrollbar-track,
-.source-list-container::-webkit-scrollbar-track,
-.note-list-container::-webkit-scrollbar-track {
-  background: var(--slate-800);
-}
-
-.collapsed-content::-webkit-scrollbar-thumb,
-.source-list-container::-webkit-scrollbar-thumb,
-.note-list-container::-webkit-scrollbar-thumb {
-  background: var(--slate-600);
-  border-radius: 4px;
-}
-
-.collapsed-content::-webkit-scrollbar-thumb:hover,
-.source-list-container::-webkit-scrollbar-thumb:hover,
-.note-list-container::-webkit-scrollbar-thumb:hover {
-  background: var(--slate-400);
-}
-
-/* Source Content */
-.source-content-section {
-  background: rgba(30, 41, 59, 0.5);
-  /* border: 1px solid rgba(148, 163, 184, 0.1); */
-  /* border-radius: 0.5rem; */
-  /* padding: 1rem; */
-  /* margin-bottom: 1rem; */
-}
-
-.source-topics-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.source-topic-tag {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  color: var(--sky-400);
-  border-radius: 1rem;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.875rem;
-}
-
-.source-content-area {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(71, 85, 105, 0.3) transparent;
-}
-
-.source-content-area::-webkit-scrollbar {
-  width: 6px;
-}
-
-.source-content-area::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.source-content-area::-webkit-scrollbar-thumb {
-  background-color: rgba(71, 85, 105, 0.3);
-  border-radius: 3px;
-}
-
-.source-content-area::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(71, 85, 105, 0.5);
-}
-
 /* Chat Messages */
 #chat-messages {
   overflow-y: auto;
@@ -454,50 +368,9 @@ header {
 /* ============================================ */
 /* === INTERACTIVE ELEMENTS === */
 /* ============================================ */
-/* Items with Hover States */
-.source-item,
-.note-item {
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.source-item:hover,
-.note-item:hover,
-.source-item.active,
-.note-item.active {
-  background-color: var(--slate-800);
-}
-
-/* Menu Toggles */
-.source-icon,
-.note-icon {
-  transition: opacity 0.2s ease;
-}
-
-.source-menu-toggle,
-.note-menu-toggle {
-  transition: opacity 0.2s ease;
-  cursor: pointer;
-  opacity: 0;
-}
-
-.source-item:hover .source-icon,
-.source-item.active .source-icon,
-.note-item:hover .note-icon,
-.note-item.active .note-icon {
-  opacity: 0 !important;
-}
-
-.source-item:hover .source-menu-toggle,
-.source-item.active .source-menu-toggle,
-.note-item:hover .note-menu-toggle,
-.note-item.active .note-menu-toggle {
-  opacity: 1 !important;
-}
 
 /* Dropdown Menus */
-.source-menu-dropdown,
-.notes-menu-dropdown {
+.actions-menu-dropdown {
   position: fixed !important;
   z-index: 100;
   min-width: 12rem;
@@ -512,14 +385,12 @@ header {
   border: 1px solid var(--slate-700);
 }
 
-.source-menu-dropdown.show,
-.notes-menu-dropdown.show {
+.actions-menu-dropdown.show {
   opacity: 1;
   visibility: visible;
 }
 
-.source-menu-dropdown a,
-.notes-menu-dropdown a {
+.actions-menu-dropdown a {
   display: flex;
   align-items: center;
   padding: 0.5rem 0.75rem;
@@ -527,8 +398,7 @@ header {
   color: white;
 }
 
-.source-menu-dropdown a:hover,
-.notes-menu-dropdown a:hover {
+.actions-menu-dropdown a:hover {
   background-color: var(--slate-800);
 }
 
@@ -888,9 +758,9 @@ header {
   }
 
   #left-column {
-    width: 25%;
+    width: 15%;
     min-width: 250px;
-    max-width: 25%;
+    max-width: 15%;
   }
 
   #middle-column {
