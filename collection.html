@@ -1446,7 +1446,7 @@
               <!-- Main Tab (Individual Customers, active by default) -->
               <button
                 data-tab="main"
-                class="main-tab tab-btn whitespace-nowrap px-4 py-1 text-white font-semibold border-b-2 border-white rounded-t-md active"
+                class="main-tab tab-btn whitespace-nowrap px-4 py-2 text-gray-300 hover:text-white border-b-2 border-transparent hover:border-white active"
               >
                 Individual Customers
               </button>
@@ -1483,18 +1483,28 @@
           <!-- Working Area Content -->
           <div
             id="working-area-content"
-            class="overflow-y-auto flex-1 px-5 py-4 space-y-4 scrollbar-transparent"
+            class="overflow-y-auto flex-1 px-5 py-4 scrollbar-transparent"
           >
             <!-- Individual Customers Tab (Default) -->
             <div id="main" class="tab-content active">
-              <!-- New Customer Button -->
-              <div class="flex justify-end">
-                <button
-                  id="new-customer-btn"
-                  class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center"
-                >
-                  <i class="fas fa-plus mr-2"></i> New Customer
-                </button>
+              <div class="flex flex-col bg-[#1B2233] text-white p-5 rounded-lg">
+                <h3 class="text-lg font-semibold">Individual Customers</h3>
+                <div id="address-content" class="text-gray-300">
+                  <p>
+                    Select a customer from the Customer Summary tab to view
+                    their address details.
+                  </p>
+                </div>
+
+                <!-- New Customer Button -->
+                <!-- <div class="flex justify-end">
+                  <button
+                    id="new-customer-btn"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center"
+                  >
+                    <i class="fas fa-plus mr-2"></i> New Customer
+                  </button>
+                </div> -->
               </div>
               <div
                 class="flex flex-col flex-1 bg-[#1B2233] text-white p-3 space-y-4 rounded-lg mt-4"
@@ -1683,14 +1693,20 @@
 
                 <!-- Table Footer: Showing count & Pagination -->
                 <div
-                  class="flex items-center justify-between mt-2 px-2 py-2 text-sm bg-[#1B2233] border-t border-gray-700 rounded-b-lg"
+                  class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 px-2 py-2 text-sm bg-[#1B2233] border-t border-gray-700 rounded-b-lg gap-2"
                 >
-                  <div id="showing-count" class="text-gray-300">
+                  <div
+                    id="showing-count"
+                    class="text-gray-300 text-center sm:text-left"
+                  >
                     Showing <span id="showing-start">1</span> to
                     <span id="showing-end">2</span> of
                     <span id="showing-total">4</span>
                   </div>
-                  <div class="flex items-center gap-1" id="pagination-controls">
+                  <div
+                    class="flex flex-wrap justify-center items-center gap-2 w-full sm:w-auto"
+                    id="pagination-controls"
+                  >
                     <button
                       class="px-2 py-1 rounded bg-slate-700 text-gray-300 hover:bg-indigo-600 hover:text-white"
                       id="prev-page"
@@ -1730,9 +1746,7 @@
 
             <!-- Customer Address Tab -->
             <div id="address" class="tab-content inactive hidden">
-              <div
-                class="flex flex-col bg-[#1B2233] text-white p-5 space-y-4 rounded-lg"
-              >
+              <div class="flex flex-col bg-[#1B2233] text-white p-5 rounded-lg">
                 <h3 class="text-lg font-semibold">Customer Address</h3>
                 <div id="address-content" class="text-gray-300">
                   <p>
@@ -1745,9 +1759,7 @@
 
             <!-- Customer Documents Tab -->
             <div id="documents" class="tab-content inactive hidden">
-              <div
-                class="flex flex-col bg-[#1B2233] text-white p-5 space-y-4 rounded-lg"
-              >
+              <div class="flex flex-col bg-[#1B2233] text-white p-5 rounded-lg">
                 <h3 class="text-lg font-semibold">Customer Documents</h3>
                 <div id="documents-content" class="text-gray-300">
                   <p>Select a customer to view their documents.</p>
@@ -1757,9 +1769,7 @@
 
             <!-- Customer Notes Tab -->
             <div id="notes" class="tab-content inactive hidden">
-              <div
-                class="flex flex-col bg-[#1B2233] text-white p-5 space-y-4 rounded-lg"
-              >
+              <div class="flex flex-col bg-[#1B2233] text-white p-5 rounded-lg">
                 <h3 class="text-lg font-semibold">Customer Notes</h3>
                 <div id="notes-content" class="text-gray-300">
                   <p>Select a customer to view or manage their notes.</p>
