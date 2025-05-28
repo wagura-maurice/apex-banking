@@ -6,35 +6,71 @@ const CONFIG = {
   mobileBreakpoint: 1024,
   animationDuration: 300,
   scrollOffset: 150,
+  debounceTime: 100,
 };
 
 const SELECTORS = {
+  // Core Elements
   columnsContainer: "#columns-container",
   leftColumn: "#left-column",
   middleColumn: "#middle-column",
   rightColumn: "#right-column",
+
+  // Column Content
   collapsedContent: ".collapsed-content",
   expandedContent: ".expanded-content",
+
+  // Mobile Navigation
   mobileTabs: ".mobile-tabs",
   tabButton: ".tab-button",
   mobileTabContent: ".mobile-tab-content",
+
+  // Modals
   modal: ".modal",
   modalClose: ".modal-close",
-  chatInput: "#chat-input",
-  chatMessages: "#chat-messages",
-  sendMessage: "#send-message",
-  chatSuggestions: "#chat-suggestions",
-  chatSuggestionsLeft: "#chat-suggestions-left",
-  chatSuggestionsRight: "#chat-suggestions-right",
-  actionsMenuDropdown: ".actions-menu-dropdown, .dropdown-menu",
+
+  // Chat
+  chatInput: ".ai-chat-chat-input",
+  chatMessages: "#ai-chat-messages",
+  sendMessage: "[aria-label='Send message']",
+  chatAttach: ".ai-chat-attach-btn",
+  chatFileInput: ".ai-chat-file-input",
+
+  // Dropdowns
+  actionsMenuDropdown: ".actions-menu-dropdown",
   actionsMenuToggle: ".dropdown-toggle",
+
+  // Table
+  selectAll: "#select-all",
+  selectRow: ".select-row",
+  toggleAdvancedSearch: "#toggle-advanced-search",
+  advancedSearch: "#advanced-search",
+
+  // Tabs
+  tabScroll: "#tab-scroll",
+  scrollLeft: "#scroll-left",
+  scrollRight: "#scroll-right",
+  tabBtn: ".tab-btn",
+  tabContent: ".tab-content",
+
+  // Jump to Bottom
+  jumpToBottomBtn: "#jump-to-bottom-btn",
+};
+
+const CLASSES = {
+  active: "active",
+  inactive: "inactive",
+  hidden: "hidden",
+  show: "show",
+  collapsed: "collapsed",
+  expanded: "expanded",
 };
 
 /* ============================================ */
 /* === UTILITY FUNCTIONS === */
 /* ============================================ */
 const Utils = {
-  debounce: function (func, wait) {
+  debounce: function (func, wait = CONFIG.debounceTime) {
     let timeout;
     return function () {
       const context = this,
@@ -54,9 +90,23 @@ const Utils = {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   },
 
-  toggleClasses: function (element, classesToAdd, classesToRemove) {
+  toggleClasses: function (element, classesToAdd = [], classesToRemove = []) {
+    if (!element) return;
     element.classList.add(...classesToAdd);
     element.classList.remove(...classesToRemove);
+  },
+
+  toggleElement: function (element, force) {
+    if (!element) return;
+    if (force === undefined) {
+      element.classList.toggle(CLASSES.hidden);
+    } else {
+      element.classList.toggle(CLASSES.hidden, !force);
+    }
+  },
+
+  isMobile: function () {
+    return window.innerWidth < CONFIG.mobileBreakpoint;
   },
 };
 
@@ -73,48 +123,6 @@ const Preloader = {
 };
 
 /* ============================================ */
-/* === MODULE: CHAT SUGGESTIONS === */
-/* ============================================ */
-const ChatSuggestions = {
-  init: function () {
-    const suggestionsContainer = document.querySelector(
-      SELECTORS.chatSuggestions
-    );
-    const leftChevron = document.querySelector(SELECTORS.chatSuggestionsLeft);
-    const rightChevron = document.querySelector(SELECTORS.chatSuggestionsRight);
-    let scrollStep = 200;
-
-    if (!suggestionsContainer || !leftChevron || !rightChevron) return;
-
-    const scrollSuggestions = (direction) => {
-      const currentScroll = suggestionsContainer.scrollLeft;
-      const maxScroll =
-        suggestionsContainer.scrollWidth - suggestionsContainer.clientWidth;
-
-      if (direction === "left") {
-        const newScroll = Math.max(0, currentScroll - scrollStep);
-        suggestionsContainer.scrollTo({ left: newScroll, behavior: "smooth" });
-      } else if (direction === "right") {
-        const newScroll = Math.min(maxScroll, currentScroll + scrollStep);
-        suggestionsContainer.scrollTo({ left: newScroll, behavior: "smooth" });
-      }
-
-      const isAtStart = suggestionsContainer.scrollLeft <= 0;
-      const isAtEnd = suggestionsContainer.scrollLeft >= maxScroll;
-      leftChevron.style.opacity = isAtStart ? "0.5" : "1";
-      rightChevron.style.opacity = isAtEnd ? "0.5" : "1";
-      leftChevron.style.pointerEvents = isAtStart ? "none" : "auto";
-      rightChevron.style.pointerEvents = isAtEnd ? "none" : "auto";
-    };
-
-    leftChevron.addEventListener("click", () => scrollSuggestions("left"));
-    rightChevron.addEventListener("click", () => scrollSuggestions("right"));
-    suggestionsContainer.addEventListener("scroll", () => scrollSuggestions());
-    scrollSuggestions();
-  },
-};
-
-/* ============================================ */
 /* === MODULE: MOBILE TABS === */
 /* ============================================ */
 const MobileTabs = {
@@ -126,19 +134,21 @@ const MobileTabs = {
   },
 
   setupInitialState: function () {
+    const { activeTab } = this;
     const activeTabButton = document.querySelector(
-      `${SELECTORS.tabButton}[data-tab="${this.activeTab}"]`
+      `${SELECTORS.tabButton}[data-tab="${activeTab}"]`
     );
-    const activeTabContent = document.querySelector(`#${this.activeTab}`);
-    if (activeTabButton) activeTabButton.classList.add("active");
-    if (activeTabContent) activeTabContent.classList.add("active");
+    const activeTabContent = document.querySelector(`#${activeTab}`);
 
-    if (window.innerWidth < CONFIG.mobileBreakpoint) {
+    if (activeTabButton) activeTabButton.classList.add(CLASSES.active);
+    if (activeTabContent) activeTabContent.classList.add(CLASSES.active);
+
+    if (Utils.isMobile()) {
       document
         .querySelectorAll(SELECTORS.mobileTabContent)
         .forEach((content) => {
-          if (content.id !== this.activeTab) {
-            content.classList.add("inactive");
+          if (content.id !== activeTab) {
+            content.classList.add(CLASSES.inactive);
           }
         });
     }
@@ -148,9 +158,10 @@ const MobileTabs = {
     document.querySelectorAll(SELECTORS.tabButton).forEach((tab) => {
       tab.addEventListener("click", this.handleTabClick.bind(this));
     });
+
     window.addEventListener(
       "resize",
-      Utils.debounce(this.handleResize.bind(this), 100)
+      Utils.debounce(this.handleResize.bind(this))
     );
   },
 
@@ -162,47 +173,61 @@ const MobileTabs = {
   },
 
   switchTab: function (tabId) {
-    document
-      .querySelector(`${SELECTORS.tabButton}[data-tab="${this.activeTab}"]`)
-      ?.classList.remove("active");
-    document.querySelector(`#${this.activeTab}`)?.classList.remove("active");
-    document.querySelector(`#${this.activeTab}`)?.classList.add("inactive");
+    const { activeTab } = this;
 
+    // Update tab buttons
+    document
+      .querySelector(`${SELECTORS.tabButton}[data-tab="${activeTab}"]`)
+      ?.classList.remove(CLASSES.active);
     document
       .querySelector(`${SELECTORS.tabButton}[data-tab="${tabId}"]`)
-      ?.classList.add("active");
-    document.querySelector(`#${tabId}`)?.classList.add("active");
-    document.querySelector(`#${tabId}`)?.classList.remove("inactive");
+      ?.classList.add(CLASSES.active);
+
+    // Update tab content
+    document.querySelector(`#${activeTab}`)?.classList.remove(CLASSES.active);
+    document.querySelector(`#${activeTab}`)?.classList.add(CLASSES.inactive);
+
+    document.querySelector(`#${tabId}`)?.classList.add(CLASSES.active);
+    document.querySelector(`#${tabId}`)?.classList.remove(CLASSES.inactive);
+
     this.activeTab = tabId;
 
+    // Scroll to top of new tab content
     const tabContent = document.querySelector(`#${tabId}`);
     if (tabContent) tabContent.scrollTop = 0;
   },
 
   handleResize: function () {
-    if (window.innerWidth >= CONFIG.mobileBreakpoint) {
+    const isMobile = Utils.isMobile();
+    const { mobileTabContent, tabButton } = SELECTORS;
+
+    if (!isMobile) {
+      // Desktop view - show all tabs
+      document.querySelectorAll(mobileTabContent).forEach((content) => {
+        content.classList.remove(CLASSES.inactive);
+        content.classList.add(CLASSES.active);
+      });
       document
-        .querySelectorAll(SELECTORS.mobileTabContent)
-        .forEach((content) => {
-          content.classList.remove("inactive");
-          content.classList.add("active");
-        });
-      document
-        .querySelectorAll(SELECTORS.tabButton)
-        .forEach((tab) => tab.classList.remove("active"));
+        .querySelectorAll(tabButton)
+        .forEach((tab) => tab.classList.remove(CLASSES.active));
       this.activeTab = null;
     } else {
+      // Mobile view - show only active tab
       const currentTab =
-        document.querySelector(`${SELECTORS.tabButton}.active`)?.dataset.tab ||
+        document.querySelector(`${tabButton}.${CLASSES.active}`)?.dataset.tab ||
         CONFIG.defaultTab;
-      document
-        .querySelectorAll(SELECTORS.mobileTabContent)
-        .forEach((content) => {
-          content.classList.remove("active");
-          content.classList.add("inactive");
-        });
-      document.querySelector(`#${currentTab}`)?.classList.add("active");
-      document.querySelector(`#${currentTab}`)?.classList.remove("inactive");
+
+      document.querySelectorAll(mobileTabContent).forEach((content) => {
+        content.classList.remove(CLASSES.active);
+        content.classList.add(CLASSES.inactive);
+      });
+
+      const activeContent = document.querySelector(`#${currentTab}`);
+      if (activeContent) {
+        activeContent.classList.add(CLASSES.active);
+        activeContent.classList.remove(CLASSES.inactive);
+      }
+
       this.activeTab = currentTab;
     }
   },
@@ -215,21 +240,27 @@ const SubmenuToggle = {
   activeSubmenu: null,
 
   init: function () {
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll("[id^='submenu-']").forEach((submenu) => {
-        submenu.classList.add("hidden");
-      });
-      document.querySelectorAll(".chevron").forEach((chevron) => {
-        chevron.classList.remove("rotate-90");
-      });
+    // Initialize all submenus as hidden
+    document.querySelectorAll("[id^='submenu-']").forEach((submenu) => {
+      submenu.classList.add(CLASSES.hidden);
     });
 
-    document.querySelectorAll("[data-submenu]").forEach((toggle) => {
-      toggle.addEventListener("click", (e) => {
+    // Initialize all chevrons
+    document.querySelectorAll(".chevron").forEach((chevron) => {
+      chevron.classList.remove("rotate-90");
+    });
+
+    // Event delegation for submenu toggles
+    document.addEventListener("click", (e) => {
+      const toggle = e.target.closest("[data-submenu]");
+      if (toggle) {
         e.stopPropagation();
         const submenuId = toggle.dataset.submenu;
         this.toggleSubmenu(submenuId);
-      });
+      } else if (this.activeSubmenu) {
+        // Close active submenu when clicking outside
+        this.toggleSubmenu(this.activeSubmenu);
+      }
     });
   },
 
@@ -239,18 +270,29 @@ const SubmenuToggle = {
       `[data-submenu="${submenuId}"] .chevron`
     );
 
+    if (!submenu || !chevron) return;
+
+    // Close all other submenus
     document.querySelectorAll("[id^='submenu-']").forEach((sm) => {
-      sm.classList.add("hidden");
-    });
-    document.querySelectorAll(".chevron").forEach((ch) => {
-      ch.classList.remove("rotate-90");
+      if (sm.id !== submenuId) {
+        sm.classList.add(CLASSES.hidden);
+      }
     });
 
+    document.querySelectorAll(".chevron").forEach((ch) => {
+      if (ch !== chevron) {
+        ch.classList.remove("rotate-90");
+      }
+    });
+
+    // Toggle current submenu
     if (this.activeSubmenu !== submenuId) {
-      submenu.classList.remove("hidden");
+      submenu.classList.remove(CLASSES.hidden);
       chevron.classList.add("rotate-90");
       this.activeSubmenu = submenuId;
     } else {
+      submenu.classList.add(CLASSES.hidden);
+      chevron.classList.remove("rotate-90");
       this.activeSubmenu = null;
     }
   },
@@ -265,33 +307,40 @@ const DropdownMenus = {
   },
 
   bindEvents: function () {
-    document.addEventListener("click", this.handleDocumentClick.bind(this));
-    document.querySelectorAll(SELECTORS.actionsMenuToggle).forEach((toggle) => {
-      toggle.addEventListener("click", this.handleActionMenuToggle.bind(this));
+    // Event delegation for dropdown toggles
+    document.addEventListener("click", (e) => {
+      const toggle = e.target.closest(SELECTORS.actionsMenuToggle);
+      if (toggle) {
+        e.stopPropagation();
+        this.handleActionMenuToggle(e);
+      } else if (!e.target.closest(SELECTORS.actionsMenuDropdown)) {
+        // Close all dropdowns when clicking outside
+        this.hideAllDropdowns();
+      }
     });
   },
 
   handleActionMenuToggle: function (e) {
-    e.stopPropagation();
-    const dropdown = e.currentTarget.nextElementSibling;
-    const isVisible = dropdown.classList.contains("show");
+    console.log("Dropdown toggle clicked", e);
+    const toggle = e.target.closest(SELECTORS.actionsMenuToggle);
+    const dropdown = toggle ? toggle.nextElementSibling : null;
+
+    if (!dropdown || !dropdown.matches(SELECTORS.actionsMenuDropdown)) {
+      console.log("Dropdown element not found or does not match selector");
+      return;
+    }
+
+    const isVisible = dropdown.classList.contains(CLASSES.show);
 
     this.hideAllDropdowns();
 
     if (!isVisible) {
-      this.positionDropdown(e.currentTarget, dropdown);
-      dropdown.classList.add("show");
-      dropdown.classList.remove("hidden");
-    }
-  },
-
-  handleDocumentClick: function (e) {
-    if (
-      !e.target.closest(
-        `${SELECTORS.actionsMenuToggle}, ${SELECTORS.actionsMenuDropdown}`
-      )
-    ) {
-      this.hideAllDropdowns();
+      console.log("Showing dropdown");
+      this.positionDropdown(toggle, dropdown);
+      dropdown.classList.add(CLASSES.show);
+      console.log("Dropdown .show class added");
+      dropdown.classList.remove(CLASSES.hidden);
+      console.log("Dropdown .hidden class removed");
     }
   },
 
@@ -299,8 +348,8 @@ const DropdownMenus = {
     document
       .querySelectorAll(SELECTORS.actionsMenuDropdown)
       .forEach((dropdown) => {
-        dropdown.classList.remove("show");
-        dropdown.classList.add("hidden");
+        dropdown.classList.remove(CLASSES.show);
+        dropdown.classList.add(CLASSES.hidden);
       });
   },
 
@@ -325,11 +374,13 @@ const DropdownMenus = {
       transformOrigin = spaceBelow > spaceAbove ? "top left" : "bottom left";
     }
 
-    dropdown.style.position = "fixed";
-    dropdown.style.top = `${top}px`;
-    dropdown.style.left = `${triggerRect.left}px`;
-    dropdown.style.minWidth = `${triggerRect.width + 140}px`;
-    dropdown.style.transformOrigin = transformOrigin;
+    Object.assign(dropdown.style, {
+      position: "fixed",
+      top: `${top}px`,
+      left: `${triggerRect.left}px`,
+      minWidth: `${triggerRect.width + 140}px`,
+      transformOrigin: transformOrigin,
+    });
   },
 };
 
@@ -340,61 +391,80 @@ const ChatFunctionality = {
   init: function () {
     const sendButton = document.querySelector(SELECTORS.sendMessage);
     const chatInput = document.querySelector(SELECTORS.chatInput);
+    const attachButton = document.querySelector(SELECTORS.chatAttach);
+    const fileInput = document.querySelector(SELECTORS.chatFileInput);
+
     if (sendButton)
       sendButton.addEventListener("click", this.sendMessage.bind(this));
     if (chatInput)
       chatInput.addEventListener("keydown", this.handleKeydown.bind(this));
+    if (attachButton && fileInput) {
+      attachButton.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", this.handleFileUpload.bind(this));
+    }
   },
 
   sendMessage: function () {
     const chatInput = document.querySelector(SELECTORS.chatInput);
     const chatMessages = document.querySelector(SELECTORS.chatMessages);
-    const messageText = chatInput.value.trim();
+    const messageText = chatInput?.value.trim();
 
-    if (messageText !== "") {
-      const userMessage = document.createElement("div");
-      userMessage.className = "flex justify-end";
-      userMessage.innerHTML = `
-        <div class="max-w-[80%] bg-purple-500 px-4 py-2 rounded-xl rounded-br-none shadow">
-          <div class="text-white">${messageText}</div>
-          <div class="text-xs text-gray-300 text-right">${Utils.formatTime()}</div>
+    if (!messageText || !chatMessages) return;
+
+    // Create user message element
+    const userMessage = document.createElement("div");
+    userMessage.className = "flex items-start justify-end";
+    userMessage.innerHTML = `
+      <div class="message-bubble user relative">
+        <p>${messageText}</p>
+        <div class="message-time text-gray-200">${Utils.formatTime()}</div>
+      </div>
+    `;
+    chatMessages.appendChild(userMessage);
+    chatInput.value = "";
+    Utils.scrollToBottom(chatMessages);
+
+    // Simulate AI response after delay
+    setTimeout(() => {
+      const aiResponse = document.createElement("div");
+      aiResponse.className = "flex items-start";
+      aiResponse.innerHTML = `
+        <div class="message-bubble ai relative">
+          <p>I received your message about "${messageText.substring(
+            0,
+            20
+          )}..."</p>
+          <div class="flex justify-between items-center mt-2">
+            <div class="text-xs text-gray-200">${Utils.formatTime()}</div>
+            <button class="text-gray-300 hover:text-white text-sm flex items-center add-to-note-btn">
+              <i class="fas fa-plus-circle mr-1"></i> Add to note
+            </button>
+            <button class="text-gray-300 hover:text-white text-sm flex items-center copy-message-btn">
+              <i class="fas fa-copy mr-1"></i> Copy
+            </button>
+          </div>
         </div>
       `;
-      chatMessages.appendChild(userMessage);
-      chatInput.value = "";
+      chatMessages.appendChild(aiResponse);
       Utils.scrollToBottom(chatMessages);
-
-      setTimeout(() => {
-        const aiResponse = document.createElement("div");
-        aiResponse.className = "flex justify-start";
-        aiResponse.innerHTML = `
-          <div class="max-w-[80%] bg-blue-500 px-4 py-2 rounded-xl rounded-bl-none shadow relative group">
-            <div class="text-white">I received your message about "${messageText.substring(
-              0,
-              20
-            )}..."</div>
-            <div class="flex justify-between items-center mt-2">
-              <div class="text-xs text-gray-300">${Utils.formatTime()}</div>
-              <button class="text-gray-300 hover:text-white text-sm flex items-center add-to-note-btn">
-                <i class="fas fa-plus-circle mr-1"></i> Add to note
-              </button>
-              <button class="text-gray-300 hover:text-white text-sm flex items-center copy-message-btn">
-                <i class="fas fa-copy mr-1"></i> Copy
-              </button>
-            </div>
-          </div>
-        `;
-        chatMessages.appendChild(aiResponse);
-        Utils.scrollToBottom(chatMessages);
-      }, 1000);
-    }
+    }, 1000);
   },
 
   handleKeydown: function (e) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      document.querySelector(SELECTORS.sendMessage)?.click();
+      this.sendMessage();
     }
+  },
+
+  handleFileUpload: function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // In a real app, you would upload the file and handle the response
+    console.log("File selected:", file.name);
+    // Reset the input
+    e.target.value = "";
   },
 };
 
@@ -414,23 +484,35 @@ const MessageActions = {
 
   addToNote: function (e) {
     const messageContent = e.target
-      .closest(".bg-blue-500")
-      .querySelector(".text-white").textContent;
-    console.log("Adding to note:", messageContent);
-    alert("Message added to notes!");
+      .closest(".message-bubble.ai")
+      ?.querySelector("p")?.textContent;
+    if (messageContent) {
+      console.log("Adding to note:", messageContent);
+      // In a real app, this would add to the notes section
+      alert("Message added to notes!");
+    }
   },
 
   copyMessage: function (e) {
     const button = e.target.closest(".copy-message-btn");
-    const messageContent = button
-      .closest(".bg-blue-500")
-      .querySelector(".text-white").textContent;
-    navigator.clipboard.writeText(messageContent).then(() => {
-      button.innerHTML = '<i class="fas fa-check mr-1"></i> Copied';
-      setTimeout(() => {
-        button.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
-      }, 2000);
-    });
+    const messageContent = e.target
+      .closest(".message-bubble.ai")
+      ?.querySelector("p")?.textContent;
+
+    if (!messageContent || !button) return;
+
+    navigator.clipboard
+      .writeText(messageContent)
+      .then(() => {
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check mr-1"></i> Copied';
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy message:", err);
+      });
   },
 };
 
@@ -486,71 +568,73 @@ const ColumnToggles = {
     const leftColumn = document.querySelector(SELECTORS.leftColumn);
     const rightColumn = document.querySelector(SELECTORS.rightColumn);
 
+    if (!middleColumn || !leftColumn || !rightColumn) return;
+
     if (this.arePanelsActive()) {
       Utils.toggleClasses(
         middleColumn,
         ["panel-active"],
-        ["expanded", "contracted"]
+        [CLASSES.expanded, "contracted"]
       );
     } else {
       middleColumn.classList.remove("panel-active");
     }
 
     if (
-      leftColumn.classList.contains("collapsed") ||
-      rightColumn.classList.contains("collapsed")
+      leftColumn.classList.contains(CLASSES.collapsed) ||
+      rightColumn.classList.contains(CLASSES.collapsed)
     ) {
-      middleColumn.classList.add("expanded");
+      middleColumn.classList.add(CLASSES.expanded);
     } else {
-      middleColumn.classList.remove("expanded");
+      middleColumn.classList.remove(CLASSES.expanded);
     }
   },
 
   toggleLeftColumn: function () {
     const leftColumn = document.querySelector(SELECTORS.leftColumn);
-    leftColumn.classList.toggle("collapsed");
-    leftColumn
-      .querySelector(SELECTORS.expandedContent)
-      ?.classList.toggle("hidden");
-    leftColumn
-      .querySelector(SELECTORS.collapsedContent)
-      ?.classList.toggle("hidden");
+    if (!leftColumn) return;
+
+    leftColumn.classList.toggle(CLASSES.collapsed);
+    Utils.toggleElement(leftColumn.querySelector(SELECTORS.expandedContent));
+    Utils.toggleElement(leftColumn.querySelector(SELECTORS.collapsedContent));
     this.updateMiddleColumnState();
   },
 
   toggleRightColumn: function () {
     const rightColumn = document.querySelector(SELECTORS.rightColumn);
-    rightColumn.classList.toggle("collapsed");
-    rightColumn
-      .querySelector(SELECTORS.expandedContent)
-      ?.classList.toggle("hidden");
-    rightColumn
-      .querySelector(SELECTORS.collapsedContent)
-      ?.classList.toggle("hidden");
+    if (!rightColumn) return;
+
+    rightColumn.classList.toggle(CLASSES.collapsed);
+    Utils.toggleElement(rightColumn.querySelector(SELECTORS.expandedContent));
+    Utils.toggleElement(rightColumn.querySelector(SELECTORS.collapsedContent));
     this.updateMiddleColumnState();
   },
 
   expandLeftColumn: function () {
     const leftColumn = document.querySelector(SELECTORS.leftColumn);
-    leftColumn.classList.remove("collapsed");
+    if (!leftColumn) return;
+
+    leftColumn.classList.remove(CLASSES.collapsed);
     leftColumn
       .querySelector(SELECTORS.expandedContent)
-      ?.classList.remove("hidden");
+      ?.classList.remove(CLASSES.hidden);
     leftColumn
       .querySelector(SELECTORS.collapsedContent)
-      ?.classList.add("hidden");
+      ?.classList.add(CLASSES.hidden);
     this.updateMiddleColumnState();
   },
 
   expandRightColumn: function () {
     const rightColumn = document.querySelector(SELECTORS.rightColumn);
-    rightColumn.classList.remove("collapsed");
+    if (!rightColumn) return;
+
+    rightColumn.classList.remove(CLASSES.collapsed);
     rightColumn
       .querySelector(SELECTORS.expandedContent)
-      ?.classList.remove("hidden");
+      ?.classList.remove(CLASSES.hidden);
     rightColumn
       .querySelector(SELECTORS.collapsedContent)
-      ?.classList.add("hidden");
+      ?.classList.add(CLASSES.hidden);
     this.updateMiddleColumnState();
   },
 
@@ -559,17 +643,23 @@ const ColumnToggles = {
     const leftColumn = document.querySelector(SELECTORS.leftColumn);
     const rightColumn = document.querySelector(SELECTORS.rightColumn);
 
+    if (!middleColumn || !leftColumn || !rightColumn) return;
+
     if (
-      !leftColumn.classList.contains("collapsed") &&
-      !rightColumn.classList.contains("collapsed")
+      !leftColumn.classList.contains(CLASSES.collapsed) &&
+      !rightColumn.classList.contains(CLASSES.collapsed)
     ) {
       this.collapseSideColumns();
-      middleColumn.classList.add("expanded");
-      e.currentTarget.innerHTML = '<i class="fas fa-compress-alt"></i>';
+      middleColumn.classList.add(CLASSES.expanded);
+      if (e.currentTarget) {
+        e.currentTarget.innerHTML = '<i class="fas fa-compress-alt"></i>';
+      }
     } else {
       this.expandSideColumns();
-      middleColumn.classList.remove("expanded");
-      e.currentTarget.innerHTML = '<i class="fas fa-expand-alt"></i>';
+      middleColumn.classList.remove(CLASSES.expanded);
+      if (e.currentTarget) {
+        e.currentTarget.innerHTML = '<i class="fas fa-expand-alt"></i>';
+      }
     }
 
     this.updateMiddleColumnState();
@@ -579,49 +669,57 @@ const ColumnToggles = {
     const leftColumn = document.querySelector(SELECTORS.leftColumn);
     const rightColumn = document.querySelector(SELECTORS.rightColumn);
 
-    leftColumn.classList.add("collapsed");
-    leftColumn
-      .querySelector(SELECTORS.expandedContent)
-      ?.classList.add("hidden");
-    leftColumn
-      .querySelector(SELECTORS.collapsedContent)
-      ?.classList.remove("hidden");
+    if (leftColumn) {
+      leftColumn.classList.add(CLASSES.collapsed);
+      leftColumn
+        .querySelector(SELECTORS.expandedContent)
+        ?.classList.add(CLASSES.hidden);
+      leftColumn
+        .querySelector(SELECTORS.collapsedContent)
+        ?.classList.remove(CLASSES.hidden);
+    }
 
-    rightColumn.classList.add("collapsed");
-    rightColumn
-      .querySelector(SELECTORS.expandedContent)
-      ?.classList.add("hidden");
-    rightColumn
-      .querySelector(SELECTORS.collapsedContent)
-      ?.classList.remove("hidden");
+    if (rightColumn) {
+      rightColumn.classList.add(CLASSES.collapsed);
+      rightColumn
+        .querySelector(SELECTORS.expandedContent)
+        ?.classList.add(CLASSES.hidden);
+      rightColumn
+        .querySelector(SELECTORS.collapsedContent)
+        ?.classList.remove(CLASSES.hidden);
+    }
   },
 
   expandSideColumns: function () {
     const leftColumn = document.querySelector(SELECTORS.leftColumn);
     const rightColumn = document.querySelector(SELECTORS.rightColumn);
 
-    leftColumn.classList.remove("collapsed");
-    leftColumn
-      .querySelector(SELECTORS.expandedContent)
-      ?.classList.remove("hidden");
-    leftColumn
-      .querySelector(SELECTORS.collapsedContent)
-      ?.classList.add("hidden");
+    if (leftColumn) {
+      leftColumn.classList.remove(CLASSES.collapsed);
+      leftColumn
+        .querySelector(SELECTORS.expandedContent)
+        ?.classList.remove(CLASSES.hidden);
+      leftColumn
+        .querySelector(SELECTORS.collapsedContent)
+        ?.classList.add(CLASSES.hidden);
+    }
 
-    rightColumn.classList.remove("collapsed");
-    rightColumn
-      .querySelector(SELECTORS.expandedContent)
-      ?.classList.remove("hidden");
-    rightColumn
-      .querySelector(SELECTORS.collapsedContent)
-      ?.classList.add("hidden");
+    if (rightColumn) {
+      rightColumn.classList.remove(CLASSES.collapsed);
+      rightColumn
+        .querySelector(SELECTORS.expandedContent)
+        ?.classList.remove(CLASSES.hidden);
+      rightColumn
+        .querySelector(SELECTORS.collapsedContent)
+        ?.classList.add(CLASSES.hidden);
+    }
   },
 
   toggleMiddleColumnSize: function () {
     if (!this.arePanelsActive()) {
       document
         .querySelector(SELECTORS.middleColumn)
-        .classList.toggle("contracted");
+        ?.classList.toggle("contracted");
     }
   },
 };
@@ -631,10 +729,11 @@ const ColumnToggles = {
 /* ============================================ */
 const TableFunctionality = {
   init: function () {
-    const selectAll = document.querySelector("#select-all");
+    const selectAll = document.querySelector(SELECTORS.selectAll);
     const toggleAdvancedSearch = document.querySelector(
-      "#toggle-advanced-search"
+      SELECTORS.toggleAdvancedSearch
     );
+
     if (selectAll)
       selectAll.addEventListener("change", this.handleSelectAll.bind(this));
     if (toggleAdvancedSearch)
@@ -645,14 +744,15 @@ const TableFunctionality = {
   },
 
   handleSelectAll: function (e) {
-    document.querySelectorAll(".select-row").forEach((cb) => {
-      cb.checked = e.target.checked;
+    const isChecked = e.target.checked;
+    document.querySelectorAll(SELECTORS.selectRow).forEach((cb) => {
+      cb.checked = isChecked;
     });
   },
 
   toggleAdvancedSearch: function () {
-    const advancedSearch = document.querySelector("#advanced-search");
-    if (advancedSearch) advancedSearch.classList.toggle("hidden");
+    const advancedSearch = document.querySelector(SELECTORS.advancedSearch);
+    if (advancedSearch) advancedSearch.classList.toggle(CLASSES.hidden);
   },
 };
 
@@ -668,26 +768,39 @@ const ModalHandling = {
         this.closeModalOnClickOutside(e);
       }
     });
+
     document.addEventListener("keydown", this.closeModalOnEscape.bind(this));
+
+    // Handle new customer button
+    const newCustomerBtn = document.getElementById("new-customer-btn");
+    const createCustomerModal = document.getElementById(
+      "create-customer-modal"
+    );
+    if (newCustomerBtn && createCustomerModal) {
+      newCustomerBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        createCustomerModal.classList.remove(CLASSES.hidden);
+      });
+    }
   },
 
   closeModal: function (e) {
     e.preventDefault();
     e.stopPropagation();
-    e.target.closest(SELECTORS.modal).classList.add("hidden");
+    e.target.closest(SELECTORS.modal)?.classList.add(CLASSES.hidden);
   },
 
   closeModalOnClickOutside: function (e) {
     if (e.target === e.currentTarget) {
-      e.currentTarget.classList.add("hidden");
+      e.currentTarget.classList.add(CLASSES.hidden);
     }
   },
 
   closeModalOnEscape: function (e) {
     if (e.key === "Escape") {
-      document
-        .querySelectorAll(SELECTORS.modal)
-        .forEach((modal) => modal.classList.add("hidden"));
+      document.querySelectorAll(SELECTORS.modal).forEach((modal) => {
+        modal.classList.add(CLASSES.hidden);
+      });
     }
   },
 };
@@ -697,8 +810,9 @@ const ModalHandling = {
 /* ============================================ */
 const JumpToBottom = {
   init: function () {
-    const chatMessages = document.querySelector("#ai-chat-messages");
-    const jumpBtn = document.querySelector("#jump-to-bottom-btn");
+    const chatMessages = document.querySelector(SELECTORS.chatMessages);
+    const jumpBtn = document.querySelector(SELECTORS.jumpToBottomBtn);
+
     if (!chatMessages || !jumpBtn) return;
 
     const atBottom = () => {
@@ -712,13 +826,13 @@ const JumpToBottom = {
 
     const toggleJumpBtn = () => {
       if (!atBottom()) {
-        jumpBtn.classList.add("show");
+        jumpBtn.classList.add(CLASSES.show);
       } else {
-        jumpBtn.classList.remove("show");
+        jumpBtn.classList.remove(CLASSES.show);
       }
     };
 
-    chatMessages.addEventListener("scroll", toggleJumpBtn);
+    chatMessages.addEventListener("scroll", Utils.debounce(toggleJumpBtn));
     setTimeout(toggleJumpBtn, 500);
 
     jumpBtn.addEventListener("click", () => {
@@ -738,9 +852,10 @@ const JumpToBottom = {
 /* ============================================ */
 const TabScroll = {
   init: function () {
-    const scrollContainer = document.querySelector("#tab-scroll");
-    const leftBtn = document.querySelector("#scroll-left");
-    const rightBtn = document.querySelector("#scroll-right");
+    const scrollContainer = document.querySelector(SELECTORS.tabScroll);
+    const leftBtn = document.querySelector(SELECTORS.scrollLeft);
+    const rightBtn = document.querySelector(SELECTORS.scrollRight);
+
     if (!scrollContainer || !leftBtn || !rightBtn) return;
 
     leftBtn.addEventListener("click", () => {
@@ -751,14 +866,15 @@ const TabScroll = {
       scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
     });
 
-    const updateScrollButtons = () => {
+    const updateScrollButtons = Utils.debounce(() => {
       const isAtStart = scrollContainer.scrollLeft <= 0;
       const isAtEnd =
         scrollContainer.scrollLeft >=
         scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
       leftBtn.style.opacity = isAtStart ? "0.5" : "1";
       rightBtn.style.opacity = isAtEnd ? "0.5" : "1";
-    };
+    });
 
     scrollContainer.addEventListener("scroll", updateScrollButtons);
     updateScrollButtons();
@@ -766,84 +882,10 @@ const TabScroll = {
 };
 
 /* ============================================ */
-/* === DOCUMENT READY === */
-/* ============================================ */
-document.addEventListener("DOMContentLoaded", () => {
-  Preloader.init();
-  ChatSuggestions.init();
-  MobileTabs.init();
-  TabsNavigation.init();
-  ColumnToggles.init();
-  DropdownMenus.init();
-  ChatFunctionality.init();
-  MessageActions.init();
-
-  // Show Delete Customer Modal when delete action is clicked
-  document.addEventListener("click", function (e) {
-    // Handle delete action
-    const deleteAction = e.target.closest('[data-action="delete"]');
-    if (deleteAction) {
-      e.preventDefault();
-      const modal = document.getElementById("delete-customer-modal");
-      if (modal) {
-        modal.classList.remove("hidden");
-      }
-      // Hide any open dropdowns
-      const openDropdowns = document.querySelectorAll(
-        ".actions-menu-dropdown.show"
-      );
-      openDropdowns.forEach((dropdown) => {
-        dropdown.classList.remove("show");
-        dropdown.classList.add("hidden");
-      });
-      return;
-    }
-    // Handle view details action
-    const viewDetailsAction = e.target.closest('[data-action="view-details"]');
-    if (viewDetailsAction) {
-      e.preventDefault();
-      // Find and click the address tab button
-      const addressTabBtn = document.querySelector(
-        '.tab-btn[data-tab="address"]'
-      );
-      if (addressTabBtn) {
-        addressTabBtn.click();
-      }
-      // Hide any open dropdowns
-      const openDropdowns = document.querySelectorAll(
-        ".actions-menu-dropdown.show"
-      );
-      openDropdowns.forEach((dropdown) => {
-        dropdown.classList.remove("show");
-        dropdown.classList.add("hidden");
-      });
-      return;
-    }
-  });
-  TableFunctionality.init();
-  ModalHandling.init();
-  JumpToBottom.init();
-  TabScroll.init();
-  SubmenuToggle.init();
-
-  // Show pen canvas modal when New Customer is clicked
-  const newCustomerBtn = document.getElementById("new-customer-btn");
-  const createCustomerModal = document.getElementById("create-customer-modal");
-  if (newCustomerBtn && createCustomerModal) {
-    newCustomerBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      createCustomerModal.classList.remove("hidden");
-    });
-  }
-});
-
-/* ============================================ */
 /* === MODULE: TABS NAVIGATION === */
 /* ============================================ */
 const TabsNavigation = {
   defaultTab: "main",
-  tabBtnSelector: ".tab-btn",
-  tabContentSelector: ".tab-content",
 
   init: function () {
     this.bindEvents();
@@ -851,42 +893,84 @@ const TabsNavigation = {
   },
 
   bindEvents: function () {
-    document.querySelectorAll(this.tabBtnSelector).forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const tab = btn.getAttribute("data-tab");
+    document.addEventListener("click", (e) => {
+      const tabBtn = e.target.closest(SELECTORS.tabBtn);
+      if (tabBtn) {
+        const tab = tabBtn.getAttribute("data-tab");
         if (tab) this.showTab(tab);
-      });
+      }
     });
   },
 
   getInitialTab: function () {
-    // Find the first button with 'active' or fallback to defaultTab
-    const activeBtn = document.querySelector(`${this.tabBtnSelector}.active`);
+    const activeBtn = document.querySelector(
+      `${SELECTORS.tabBtn}.${CLASSES.active}`
+    );
     return activeBtn ? activeBtn.getAttribute("data-tab") : this.defaultTab;
   },
 
   showTab: function (tab) {
     // Update tab buttons
-    document.querySelectorAll(this.tabBtnSelector).forEach((btn) => {
+    document.querySelectorAll(SELECTORS.tabBtn).forEach((btn) => {
       if (btn.getAttribute("data-tab") === tab) {
-        btn.classList.add("active");
+        btn.classList.add(CLASSES.active);
       } else {
-        btn.classList.remove("active");
+        btn.classList.remove(CLASSES.active);
       }
     });
+
     // Update tab content
-    document.querySelectorAll(this.tabContentSelector).forEach((content) => {
+    document.querySelectorAll(SELECTORS.tabContent).forEach((content) => {
       if (content.id === tab) {
-        content.classList.add("active");
-        content.classList.remove("inactive");
-        content.classList.remove("hidden");
-        content.style.display = "block";
+        content.classList.add(CLASSES.active);
+        content.classList.remove(CLASSES.inactive);
+        content.classList.remove(CLASSES.hidden);
       } else {
-        content.classList.remove("active");
-        content.classList.add("inactive");
-        content.classList.add("hidden");
-        content.style.display = "none";
+        content.classList.remove(CLASSES.active);
+        content.classList.add(CLASSES.inactive);
+        content.classList.add(CLASSES.hidden);
       }
     });
   },
 };
+
+/* ============================================ */
+/* === DOCUMENT READY === */
+/* ============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize all modules
+  Preloader.init();
+  MobileTabs.init();
+  TabsNavigation.init();
+  ColumnToggles.init();
+  DropdownMenus.init();
+  ChatFunctionality.init();
+  MessageActions.init();
+  TableFunctionality.init();
+  ModalHandling.init();
+  JumpToBottom.init();
+  TabScroll.init();
+  SubmenuToggle.init();
+
+  // Handle delete action
+  document.addEventListener("click", (e) => {
+    const deleteAction = e.target.closest('[data-action="delete"]');
+    if (deleteAction) {
+      e.preventDefault();
+      document
+        .getElementById("delete-customer-modal")
+        ?.classList.remove(CLASSES.hidden);
+      DropdownMenus.hideAllDropdowns();
+      return;
+    }
+
+    // Handle view details action
+    const viewDetailsAction = e.target.closest('[data-action="view-details"]');
+    if (viewDetailsAction) {
+      e.preventDefault();
+      document.querySelector('.tab-btn[data-tab="address"]')?.click();
+      DropdownMenus.hideAllDropdowns();
+      return;
+    }
+  });
+});
