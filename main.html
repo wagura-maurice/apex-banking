@@ -1932,11 +1932,10 @@
     <!-- Modals -->
     <!-- Create Customer Modal -->
     <div
-      class="modal fixed hidden inset-0 z-50 bg-black bg-opacity-70 w-screen h-screen"
+      class="modal fixed hidden inset-0 z-50 bg-black bg-opacity-70 w-screen h-screen flex items-center justify-center"
       id="create-customer-modal"
     >
-      <!-- Main container - fills nearly entire screen -->
-      <div class="w-full h-full flex flex-col overflow-hidden">
+      <div class="modal-content bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full overflow-hidden">
         <!-- Modal Header -->
         <div class="flex justify-between items-center p-3">
           <div class="flex items-center">
@@ -1962,7 +1961,7 @@
           </button>
         </div>
         <!-- Main Content Area -->
-        <div class="flex flex-1 overflow-hidden gap-x-2">
+        <div class="flex overflow-hidden gap-x-2">
           <!-- Left Sidebar (25%) - Chat -->
           <div class="w-1/4 flex flex-col bg-gray-900 rounded-lg ai-panel">
             <div
