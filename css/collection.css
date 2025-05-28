@@ -68,7 +68,7 @@
   background: #232b3e;
 }
 
-/* End Tabs Navigation Wrapper Fixes */
+/* Root Variables */
 :root {
   --slate-900: #0f172a;
   --slate-800: #1e293b;
@@ -112,7 +112,6 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Left Column */
 #left-column {
   width: 17.5%;
   min-width: 250px;
@@ -121,15 +120,13 @@ body {
   overflow: hidden;
 }
 
-/* Middle Column (Default Active) */
 #middle-column {
-  flex: 1; /* Fixed flex value to prevent dynamic shifts */
+  flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* Right Column */
 #right-column {
   width: 27.5%;
   min-width: 250px;
@@ -139,14 +136,12 @@ body {
   overflow: hidden;
 }
 
-/* Collapsed States */
 #left-column.collapsed,
 #right-column.collapsed {
-  width: 4rem !important;
+  width: 4rem;
   min-width: 4rem;
 }
 
-/* Expanded Content */
 .expanded-content > div:first-child {
   display: flex;
   align-items: center;
@@ -165,7 +160,6 @@ header {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Tabs */
 .mobile-tabs {
   display: flex;
   border-bottom: 1px solid var(--slate-700);
@@ -203,7 +197,6 @@ header {
 /* ============================================ */
 /* === CONTENT SECTIONS === */
 /* ============================================ */
-/* Chat Messages */
 #chat-messages {
   overflow-y: auto;
   display: flex;
@@ -267,7 +260,6 @@ header {
   margin-top: 0.25rem;
 }
 
-/* Chat Input */
 #chat-input {
   width: 100%;
   background-color: var(--slate-900);
@@ -283,15 +275,14 @@ header {
   box-shadow: 0 0 0 2px var(--sky-400);
 }
 
-/* Chat Suggestions */
 #chat-suggestions {
   display: flex;
   gap: 0.5rem;
   overflow-x: auto;
   padding: 0.5rem;
-  max-width: 100%; /* Ensure it doesn’t exceed container */
-  scroll-behavior: smooth; /* Enable smooth scrolling */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  max-width: 100%;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 #chat-suggestions button {
@@ -302,15 +293,14 @@ header {
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
-  white-space: nowrap; /* Prevent text wrapping */
-  flex-shrink: 0; /* Prevent buttons from shrinking */
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 #chat-suggestions button:hover {
   background-color: var(--slate-600);
 }
 
-/* Chevron Buttons for Suggestions */
 .chevron-left,
 .chevron-right {
   display: flex;
@@ -331,15 +321,12 @@ header {
   background-color: var(--slate-600);
 }
 
+/* Commented out unused source and note styles */
+/*
 .note-content-section {
   background: rgba(30, 41, 59, 0.5);
-  /* border: 1px solid rgba(148, 163, 184, 0.1); */
-  /* border-radius: 0.5rem; */
-  /* padding: 1rem; */
-  /* margin-bottom: 1rem; */
 }
 
-/* Edit Note Content */
 #edit-note-content {
   min-height: 200px;
   max-height: calc(100vh - 300px);
@@ -364,17 +351,16 @@ header {
 #edit-note-content::-webkit-scrollbar-thumb:hover {
   background: var(--slate-400);
 }
+*/
 
 /* ============================================ */
 /* === INTERACTIVE ELEMENTS === */
 /* ============================================ */
-
-/* Dropdown Menus */
-.actions-menu-dropdown {
-  position: fixed !important;
-  z-index: 100;
+.actions-menu-dropdown,
+.dropdown-menu {
+  position: fixed;
+  z-index: 1000;
   min-width: 12rem;
-  transform-origin: top right;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
@@ -385,24 +371,33 @@ header {
   border: 1px solid var(--slate-700);
 }
 
-.actions-menu-dropdown.show {
+.actions-menu-dropdown.show,
+.dropdown-menu.show {
   opacity: 1;
   visibility: visible;
 }
 
-.actions-menu-dropdown a {
+.actions-menu-dropdown a,
+.dropdown-menu a {
   display: flex;
   align-items: center;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   color: white;
+  text-decoration: none;
 }
 
-.actions-menu-dropdown a:hover {
-  background-color: var(--slate-800);
+.actions-menu-dropdown a:hover,
+.dropdown-menu a:hover {
+  background-color: var(--slate-600);
 }
 
-/* Custom Checkbox */
+.actions-menu-dropdown a:focus,
+.dropdown-menu a:focus {
+  outline: 2px solid var(--sky-400);
+  outline-offset: 2px;
+}
+
 .checkbox {
   appearance: none;
   width: 1rem;
@@ -443,6 +438,7 @@ header {
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay {
@@ -450,26 +446,27 @@ header {
   inset: 0;
   background-color: #000;
   opacity: 0.7;
-  z-index: 1001 !important;
+  z-index: 1001;
 }
 
-.modal > .bg-blue-gray,
 .modal > div:not(.modal-overlay) {
   position: relative;
-  z-index: 1002 !important;
-  background-color: #1e293b; /* Slate-800, matches index.css */
-  color: #f8fafc; /* Light text for readability */
+  z-index: 1002;
+  background-color: var(--slate-800);
+  color: #f8fafc;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   width: 100%;
+  max-width: 600px;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ============================================ */
 /* === UTILITY CLASSES === */
 /* ============================================ */
-/* Preloader */
 #preloader {
   position: fixed;
   inset: 0;
@@ -480,7 +477,6 @@ header {
   justify-content: center;
 }
 
-/* Jump to Bottom Button */
 #jump-to-bottom-btn {
   position: fixed;
   left: 50%;
@@ -508,7 +504,6 @@ header {
   background: var(--indigo-600);
 }
 
-/* Scrollbar Utility */
 .scrollbar-transparent {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -538,12 +533,10 @@ header {
   }
 }
 
-/* Message Time Hover */
 .group:hover .text-blue-100 {
   z-index: 10;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -606,7 +599,6 @@ header {
 /* ============================================ */
 /* === RESPONSIVE ADJUSTMENTS === */
 /* ============================================ */
-/* Mobile (below 1024px) */
 @media (max-width: 1023px) {
   #columns-container {
     flex-direction: column;
@@ -631,7 +623,6 @@ header {
     display: none;
   }
 
-  /* Mobile Tab Content */
   .mobile-tab-content {
     width: 100%;
     height: calc(100vh - 8rem);
@@ -654,7 +645,6 @@ header {
     z-index: -1;
   }
 
-  /* Ensure all columns are styled correctly when active */
   #left-column.active,
   #middle-column.active,
   #right-column.active {
@@ -673,7 +663,6 @@ header {
   }
 }
 
-/* Small mobile (below 640px) */
 @media (max-width: 639px) {
   header {
     padding: 0.5rem;
@@ -694,11 +683,6 @@ header {
     font-size: 0.75rem;
   }
 
-  .source-item,
-  .note-item {
-    padding: 0.5rem;
-  }
-
   .group:active .flex.justify-between {
     opacity: 1 !important;
   }
@@ -715,7 +699,6 @@ header {
   }
 }
 
-/* Tablet (640px - 1023px) */
 @media (min-width: 640px) and (max-width: 1023px) {
   #middle-column {
     flex: 1.5;
@@ -728,14 +711,8 @@ header {
   .modal > div:not(.modal-overlay) {
     max-width: 90%;
   }
-
-  .source-item,
-  .note-item {
-    padding: 0.75rem;
-  }
 }
 
-/* Desktop (1024px and above) */
 @media (min-width: 1024px) {
   .mobile-tabs {
     display: none;
@@ -772,55 +749,22 @@ header {
     min-width: 250px;
     max-width: 25%;
   }
-
-  .source-item:hover .source-menu-toggle,
-  .note-item:hover .note-menu-toggle {
-    opacity: 1 !important;
-  }
 }
 
-/* Large desktop (1440px and above) */
-@media (min-width: 1440px) {
-  #left-column,
-  #right-column {
-    /* width: 300px; */
-  }
-
-  #middle-column {
-    /* flex: 3; */
-  }
-}
-
-/* Modal responsiveness (below 767px) */
-@media (max-width: 767px) {
-  .modal > div:not(.modal-overlay) {
-    margin: 0.5rem;
-    padding: 1rem;
-  }
-
-  .modal-footer button {
-    padding: 0.75rem 1rem;
-  }
-}
-
-/* =================================== */
-/* Add these styles to your collection.css file */
 @media (max-width: 767px) {
   .modal {
-    align-items: flex-start; /* Align to top instead of center */
-    padding-top: 1rem; /* Add some top padding */
-    padding-bottom: 1rem; /* Add bottom padding */
-    overflow-y: auto; /* Enable scrolling for the modal container */
+    align-items: flex-start;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    overflow-y: auto;
   }
 
   .modal > div:not(.modal-overlay) {
-    margin: 1rem auto; /* Center with auto margins */
-    max-height: calc(100vh - 2rem); /* Limit height to viewport minus padding */
-    overflow-y: auto; /* Enable scrolling for modal content */
-    transform: none !important; /* Remove any transforms that might affect positioning */
+    margin: 1rem auto;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
   }
 
-  /* Modal header adjustments */
   .modal > div:not(.modal-overlay) > div:first-child {
     position: sticky;
     top: 0;
@@ -828,12 +772,10 @@ header {
     z-index: 10;
   }
 
-  /* Modal body adjustments */
   .modal > div:not(.modal-overlay) > div:nth-child(2) {
-    padding-bottom: 1rem; /* Add bottom padding */
+    padding-bottom: 1rem;
   }
 
-  /* Modal footer adjustments */
   .modal > div:not(.modal-overlay) > div:last-child {
     position: sticky;
     bottom: 0;
@@ -842,14 +784,4 @@ header {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
-}
-
-/* Additional improvements for all screen sizes */
-.modal {
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-}
-
-.modal > div:not(.modal-overlay) {
-  display: flex;
-  flex-direction: column;
 }

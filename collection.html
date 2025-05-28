@@ -217,7 +217,7 @@
               <!-- System -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-system')"
+                data-submenu="submenu-system" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -230,7 +230,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-system">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-system">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -249,7 +249,7 @@
               <!-- Loan Workflow -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-loan')"
+                data-submenu="submenu-loan" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -262,7 +262,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-loan">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-loan">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -291,7 +291,7 @@
               <!-- Customer Information -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-customer')"
+                data-submenu="submenu-customer" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -306,7 +306,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-customer">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-customer">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -331,7 +331,7 @@
               <!-- Bill Discounting -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-bill')"
+                data-submenu="submenu-bill" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -346,7 +346,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-bill">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-bill">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -365,7 +365,7 @@
               <!-- Biometrics -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-biometrics')"
+                data-submenu="submenu-biometrics" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -378,7 +378,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-biometrics">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-biometrics">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -397,7 +397,7 @@
               <!-- Clearing -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-clearing')"
+                data-submenu="submenu-clearing" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -410,7 +410,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-clearing">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-clearing">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -429,7 +429,7 @@
               <!-- Fixed Assets -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-assets')"
+                data-submenu="submenu-assets" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -442,7 +442,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-assets">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-assets">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -461,7 +461,7 @@
               <!-- Mail Management -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-mail')"
+                data-submenu="submenu-mail" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -474,7 +474,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-mail">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-mail">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -492,7 +492,7 @@
               <!-- Scoring -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-scoring')"
+                data-submenu="submenu-scoring" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -505,7 +505,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-scoring">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-scoring">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -526,7 +526,7 @@
               <!-- Agency Banking -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-agency')"
+                data-submenu="submenu-agency" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -539,7 +539,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-agency">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-agency">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -560,7 +560,7 @@
               <!-- Money Markets -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-money')"
+                data-submenu="submenu-money" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -573,7 +573,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-money">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-money">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -594,7 +594,7 @@
               <!-- System Security -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-security')"
+                data-submenu="submenu-security" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -607,7 +607,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-security">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-security">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -626,7 +626,7 @@
               <!-- Other Modules -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-other')"
+                data-submenu="submenu-other" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -639,7 +639,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-other">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-other">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -658,7 +658,7 @@
               <!-- Customer Accounts -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-accounts')"
+                data-submenu="submenu-accounts" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -671,7 +671,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-accounts">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-accounts">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -690,7 +690,7 @@
               <!-- Transactions -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-transactions')"
+                data-submenu="submenu-transactions" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -733,7 +733,7 @@
               <!-- Groups -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-groups')"
+                data-submenu="submenu-groups" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -746,7 +746,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-groups">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-groups">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -765,7 +765,7 @@
               <!-- Bank Settings -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-bank-settings')"
+                data-submenu="submenu-bank-settings" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -800,7 +800,7 @@
               <!-- Overdrafts -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-overdrafts')"
+                data-submenu="submenu-overdrafts" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -813,7 +813,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-overdrafts">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-overdrafts">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -836,7 +836,7 @@
               <!-- Deposits -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-deposits')"
+                data-submenu="submenu-deposits" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -849,7 +849,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-deposits">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-deposits">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -870,7 +870,7 @@
               <!-- General Ledger -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-ledger')"
+                data-submenu="submenu-ledger" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -883,7 +883,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-ledger">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-ledger">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -906,7 +906,7 @@
               <!-- Products -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-products')"
+                data-submenu="submenu-products" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -919,7 +919,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-products">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-products">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -938,7 +938,7 @@
               <!-- Utilities -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-utilities')"
+                data-submenu="submenu-utilities" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -951,7 +951,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-utilities">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-utilities">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -970,7 +970,7 @@
               <!-- Interest Management -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-interest')"
+                data-submenu="submenu-interest" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -985,7 +985,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-interest">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-interest">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
@@ -1004,7 +1004,7 @@
               <!-- Stores and Procurement -->
               <li
                 class="group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
-                onclick="toggleSubmenu(this, 'submenu-stores')"
+                data-submenu="submenu-stores" class="submenu-toggle group py-2 px-3 hover:bg-slate-700 rounded cursor-pointer flex flex-col relative"
               >
                 <div class="flex items-center">
                   <div
@@ -1019,7 +1019,7 @@
                     class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-200 chevron"
                   ></i>
                 </div>
-                <ul class="submenu pl-8 mt-1 space-y-1" id="submenu-stores">
+                <ul class="submenu pl-8 mt-1 space-y-1 hidden" id="submenu-stores">
                   <li
                     class="py-1.5 px-3 hover:bg-slate-600 rounded text-sm flex items-center"
                   >
