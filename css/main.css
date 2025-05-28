@@ -237,7 +237,6 @@ header {
 /* === CONTENT SECTIONS === */
 /* ============================================ */
 #ai-chat-messages {
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
