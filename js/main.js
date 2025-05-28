@@ -761,7 +761,7 @@ const TableFunctionality = {
 /* ============================================ */
 const ModalHandling = {
   init: function () {
-    document.addEventListener("click", (e) => {
+    document.addEventListener("mousedown", (e) => {
       // Close modal on .modal-close (close icon, cancel button, etc.)
       const closeBtn = e.target.closest(SELECTORS.modalClose);
       if (closeBtn) {
@@ -769,14 +769,20 @@ const ModalHandling = {
         return;
       }
       // Close modal on clicking overlay (outside modal content)
-      const modalOverlay = e.target.classList.contains('modal') ? e.target : null;
-      if (modalOverlay) {
-        this.closeModalOnClickOutside(e);
+      const modalOverlay = e.target.classList.contains("modal")
+        ? e.target
+        : null;
+      if (modalOverlay && e.target === e.currentTarget) {
+        this.closeModal(e);
         return;
       }
     });
 
-    document.addEventListener("keydown", this.closeModalOnEscape.bind(this));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.closeModal();
+      }
+    });
 
     // Handle new customer button
     const newCustomerBtn = document.getElementById("new-customer-btn");
@@ -791,27 +797,28 @@ const ModalHandling = {
     }
   },
 
-  closeModal: function (e) {
-    e.preventDefault();
-    // Find the closest modal ancestor and hide it
-    const modal = e.target.closest(SELECTORS.modal);
-    if (modal) {
-      modal.classList.add(CLASSES.hidden);
-    }
-  },
-
-  closeModalOnClickOutside: function (e) {
-    // Only close if the user clicked directly on the overlay (not modal content)
-    if (e.target === e.currentTarget) {
-      e.currentTarget.classList.add(CLASSES.hidden);
-    }
-  },
-
-  closeModalOnEscape: function (e) {
-    if (e.key === "Escape") {
+  closeModal: function (eOrModal) {
+    // If called with no arguments or Escape, close all modals
+    if (!eOrModal || eOrModal.key === "Escape") {
       document.querySelectorAll(SELECTORS.modal).forEach((modal) => {
         modal.classList.add(CLASSES.hidden);
       });
+      return;
+    }
+    // If called with an event, find the modal to close
+    let modal = null;
+    if (eOrModal.target) {
+      // For overlay or button clicks
+      modal =
+        eOrModal.target.closest(SELECTORS.modal) ||
+        (eOrModal.target.classList.contains("modal") ? eOrModal.target : null);
+      if (modal) {
+        eOrModal.preventDefault();
+        modal.classList.add(CLASSES.hidden);
+      }
+    } else if (eOrModal instanceof Element) {
+      // Direct modal element
+      eOrModal.classList.add(CLASSES.hidden);
     }
   },
 };
