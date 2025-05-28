@@ -777,6 +777,43 @@ document.addEventListener("DOMContentLoaded", () => {
   DropdownMenus.init();
   ChatFunctionality.init();
   MessageActions.init();
+
+  // Show Delete Customer Modal when delete action is clicked
+  document.addEventListener("click", function(e) {
+    // Handle delete action
+    const deleteAction = e.target.closest('[data-action="delete"]');
+    if (deleteAction) {
+      e.preventDefault();
+      const modal = document.getElementById("delete-customer-modal");
+      if (modal) {
+        modal.classList.remove("hidden");
+      }
+      // Hide any open dropdowns
+      const openDropdowns = document.querySelectorAll('.actions-menu-dropdown.show');
+      openDropdowns.forEach(dropdown => {
+        dropdown.classList.remove('show');
+        dropdown.classList.add('hidden');
+      });
+      return;
+    }
+    // Handle view details action
+    const viewDetailsAction = e.target.closest('[data-action="view-details"]');
+    if (viewDetailsAction) {
+      e.preventDefault();
+      // Find and click the address tab button
+      const addressTabBtn = document.querySelector('.tab-btn[data-tab="address"]');
+      if (addressTabBtn) {
+        addressTabBtn.click();
+      }
+      // Hide any open dropdowns
+      const openDropdowns = document.querySelectorAll('.actions-menu-dropdown.show');
+      openDropdowns.forEach(dropdown => {
+        dropdown.classList.remove('show');
+        dropdown.classList.add('hidden');
+      });
+      return;
+    }
+  });
   TableFunctionality.init();
   ModalHandling.init();
   JumpToBottom.init();

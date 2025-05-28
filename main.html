@@ -1675,19 +1675,17 @@
                               </a>
                               <a
                                 href="#"
-                                data-action="source-notes"
+                                data-action="edit"
                                 class="flex items-center px-3 py-2 text-sm text-white hover:bg-slate-700"
                               >
-                                <i class="fas fa-book mr-2"></i> Source all
-                                notes
+                                <i class="fas fa-edit mr-2"></i> Edit
                               </a>
                               <a
                                 href="#"
-                                data-action="delete-notes"
+                                data-action="delete"
                                 class="flex items-center px-3 py-2 text-sm text-white hover:bg-slate-700"
                               >
-                                <i class="fas fa-trash-alt mr-2"></i> Delete all
-                                notes
+                                <i class="fas fa-trash-alt mr-2"></i> Delete
                               </a>
                             </div>
                           </div>
@@ -2170,37 +2168,8 @@
 
           <!-- Middle Content Area (50%) - Quill Rich Text Editor -->
           <div class="w-2/4 flex flex-col bg-gray-900 rounded-lg main-editor">
-            <div id="editor" class="flex-1 bg-slate-800 text-white rounded-lg">
-              <h1>AI-Enhanced Document Editor</h1>
-              <p>
-                This is a sample document with rich text editing capabilities.
-                Select any text to see AI integration features.
-              </p>
-
-              <h2>Key Features</h2>
-              <p>
-                You can highlight text, and the AI panel will show exactly where
-                in the document you've selected. This enables precise AI
-                assistance for content editing, expansion, or explanation.
-              </p>
-
-              <h3>How it Works</h3>
-              <ul>
-                <li>Select any text in this editor</li>
-                <li>See the selection details in the right panel</li>
-                <li>Use AI actions to modify or enhance your content</li>
-                <li>AI responses are inserted at the exact location</li>
-              </ul>
-
-              <p>
-                The system tracks the exact position of your selections, making
-                it perfect for collaborative editing with AI assistance.
-              </p>
-
-              <blockquote>
-                "The future of content creation is the seamless integration of
-                human creativity with AI assistance."
-              </blockquote>
+            <div class="flex-1 bg-slate-800 text-white rounded-lg">
+              <!-- Content Area -->
             </div>
           </div>
 
@@ -2209,88 +2178,67 @@
             <div
               class="flex-1 w-full overflow-y-auto py-1 scrollbar-transparent"
             >
-              <div class="p-4">
-                <div
-                  class="selection-info bg-slate-700 rounded-lg border-l-4 border-sky-500 mb-4"
-                >
-                  <h3 class="text-slate-200 text-sm font-semibold p-4">
-                    Selected Content
-                  </h3>
-                  <div
-                    class="selected-text bg-slate-900 p-3 rounded border border-slate-600 italic"
-                    id="selectedText"
-                  >
-                    Select text in the editor to see it here...
-                  </div>
-                  <div
-                    class="position-info text-xs text-slate-400 p-4"
-                    id="positionInfo"
-                  >
-                    Position: No selection
-                  </div>
-                </div>
-
-                <div class="ai-actions flex flex-col gap-2">
-                  <button
-                    class="ai-btn primary py-2 px-4 rounded bg-sky-500 hover:bg-sky-600 transition-colors text-white text-sm font-medium"
-                    id="explainBtn"
-                    disabled
-                  >
-                    🧠 Explain This
-                  </button>
-                  <button
-                    class="ai-btn primary py-2 px-4 rounded bg-sky-500 hover:bg-sky-600 transition-colors text-white text-sm font-medium"
-                    id="expandBtn"
-                    disabled
-                  >
-                    📝 Expand Content
-                  </button>
-                  <button
-                    class="ai-btn secondary py-2 px-4 rounded bg-slate-600 hover:bg-slate-700 transition-colors text-white text-sm font-medium"
-                    id="summarizeBtn"
-                    disabled
-                  >
-                    📋 Summarize
-                  </button>
-                  <button
-                    class="ai-btn secondary py-2 px-4 rounded bg-slate-600 hover:bg-slate-700 transition-colors text-white text-sm font-medium"
-                    id="improveBtn"
-                    disabled
-                  >
-                    ✨ Improve Writing
-                  </button>
-                </div>
-
-                <div
-                  class="relative w-full max-w-xl flex items-center bg-gray-800 shadow-inner px-4 mt-2 rounded-lg"
-                >
-                  <button
-                    id="ai-attach-right"
-                    class="absolute left-3 top-4 text-gray-400 hover:text-sky-400 transition-colors text-lg focus:outline-none bg-transparent border-none cursor-pointer"
-                    title="Attach"
-                    type="button"
-                  >
-                    <i class="fas fa-paperclip"></i>
-                  </button>
-                  <input type="file" id="ai-file-input-right" class="hidden" />
-                  <textarea
-                    id="ai-text-input-right"
-                    class="flex-1 bg-transparent text-white text-sm font-medium placeholder-gray-400 focus:outline-none px-8 resize-none border-none shadow-none custom-textarea"
-                    placeholder="Share your story idea and watch it unfold"
-                    autocomplete="off"
-                    rows="3"
-                  ></textarea>
-                  <button
-                    id="ai-text-send-right"
-                    class="absolute right-3 top-4 flex items-center justify-center text-gray-400 hover:text-sky-400 transition-colors text-lg focus:outline-none bg-transparent border-none cursor-pointer rounded-l-full"
-                    title="Send"
-                    type="button"
-                  >
-                    <i class="fas fa-paper-plane"></i>
-                  </button>
-                </div>
-              </div>
+              <!-- Content Area -->
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Customer Modal -->
+    <div
+      class="modal fixed hidden inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70"
+      id="delete-customer-modal"
+    >
+      <div class="bg-blue-gray rounded-lg shadow-xl max-w-2xl w-full">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-start p-4 border-b rounded-t">
+          <div>
+            <button
+              id="delete-customer-modal-back"
+              class="hidden mr-4 text-gray-400 hover:text-white focus:outline-none"
+            >
+              <i class="fas fa-arrow-left text-xl"></i>
+            </button>
+            <h3
+              id="delete-customer-modal-title"
+              class="py-4 text-xl font-bold text-white"
+            >
+              Delete Customer
+            </h3>
+            <p
+              id="delete-customer-modal-description"
+              class="text-gray-300 mt-1"
+            >
+              Are you sure you want to delete this customer? This action cannot
+              be undone.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="modal-close text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+          >
+            <i class="fa-solid fa-xmark p-1"></i>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+
+        <!-- Modal Footer -->
+        <div
+          class="flex justify-end gap-0 p-4"
+          id="delete-customer-modal-footer"
+        >
+          <div class="flex justify-end gap-0">
+            <button
+              class="px-4 py-2 rounded-l-full text-gray-300 hover:bg-blue-gray modal-close border border-r-0 border-gray-600"
+            >
+              Cancel
+            </button>
+            <button
+              class="px-4 py-2 rounded-r-full bg-red-600 text-white border border-gray-600"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
