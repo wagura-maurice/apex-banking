@@ -782,6 +782,16 @@ document.addEventListener("DOMContentLoaded", () => {
   JumpToBottom.init();
   TabScroll.init();
   SubmenuToggle.init();
+
+  // Show pen canvas modal when New Customer is clicked
+  const newCustomerBtn = document.getElementById("new-customer-btn");
+  const canvasModal = document.getElementById("open-canvas-notes-modal");
+  if (newCustomerBtn && canvasModal) {
+    newCustomerBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      canvasModal.classList.remove("hidden");
+    });
+  }
 });
 
 /* ============================================ */
