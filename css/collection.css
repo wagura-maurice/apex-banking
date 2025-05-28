@@ -92,6 +92,15 @@
   transition: color 0.2s, background 0.2s;
 }
 
+.tab-btn.active:not(.main-tab) {
+  background: var(--slate-700) !important;
+  color: #fff !important;
+  border-bottom: 3px solid var(--sky-400) !important;
+  font-weight: 600 !important;
+  z-index: 1;
+  box-shadow: none !important;
+}
+
 #tab-scroll button:hover,
 #tab-scroll button:focus {
   color: #fff;
